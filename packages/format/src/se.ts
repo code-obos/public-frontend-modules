@@ -12,3 +12,6 @@ const ORG_NUMBER_FORMAT = /^(\d{6})(\d{4})$/;
 export function formatOrganizationNumber(input: string): string {
   return replaceIfMatch(input, ORG_NUMBER_FORMAT, '$1-$2');
 }
+
+// just reexport the no method for API feature parity
+export { formatObosMembershipNumber } from './no';
