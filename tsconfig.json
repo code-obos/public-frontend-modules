@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "isolatedModules": true,
+    "isolatedDeclarations": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2019",
+
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true
+  }
+}

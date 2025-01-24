@@ -1,0 +1,17 @@
+# node/npm/next
+node_modules
+dist/
+build/
+.next
+
+# editors
+.idea/
+
+*.log
+*.swp
+
+# os
+.DS_Store
+
+# local env files
+.env.local
