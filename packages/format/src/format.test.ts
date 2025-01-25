@@ -2,13 +2,22 @@ import { describe, expect, test } from 'vitest';
 import {
   formatObosMembershipNumber as formatObosMembershipNumberNo,
   formatOrganizationNumber as formatOrganizationNumberNo,
+  formatPhoneNumber as formatPhoneNumberNo,
 } from './no';
 import {
   formatObosMembershipNumber as formatObosMembershipNumberSe,
   formatOrganizationNumber as formatOrganizationNumberSe,
+  formatPhoneNumber as formatPhoneNumberSe,
 } from './se';
 
 describe('no', () => {
+  test.each([
+    ['22865500', '22 86 55 00'],
+    ['80000000', '800 00 000'],
+  ])('formatPhoneNumber(%s) -> %s', (input, expected) => {
+    expect(formatPhoneNumberNo(input)).toBe(expected);
+  });
+
   test.each([
     ['000000000', '000 000 000'],
     ['000 000 000', '000 000 000'],
@@ -20,6 +29,31 @@ describe('no', () => {
 });
 
 describe('se', () => {
+  test.each([
+    // mobile phone numbers
+    ['0701234567', '070-123 45 67'],
+    ['070 12 345 67', '070-123 45 67'],
+    // 2 digit area code
+    ['0812345', '08-123 45'],
+    ['08123456', '08-12 34 56'],
+    ['081234567', '08-123 45 67'],
+    ['0812345678', '08-123 456 78'],
+    // 3 digit area code
+    ['03112345', '031-123 45'],
+    ['031123456', '031-12 34 56'],
+    ['0311234567', '031-123 45 67'],
+    ['03112345678', '031-123 456 78'],
+    // 4 digit area code
+    ['030312345', '0303-123 45'],
+    ['0303123456', '0303-12 34 56'],
+    ['03031234567', '0303-123 45 67'],
+    ['030312345678', '0303-123 456 78'],
+    // invalid, too long a number
+    ['0303123456789', '0303123456789'],
+  ])('formatPhoneNumber(%s) -> %s', (input, expected) => {
+    expect(formatPhoneNumberSe(input)).toBe(expected);
+  });
+
   test.each([
     ['0000000000', '000000-0000'],
     ['000000-0000', '000000-0000'],
