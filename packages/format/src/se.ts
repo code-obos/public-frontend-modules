@@ -45,7 +45,10 @@ export function formatPhoneNumber(input: string): string {
   }
 
   const subscriberNumberFormat =
-    SUBSCRIBER_NUMBER_FORMATS[subscriberNumber.length];
+    SUBSCRIBER_NUMBER_FORMATS[
+      // the cast should be okay here, as we've checked the length above
+      subscriberNumber.length as keyof typeof SUBSCRIBER_NUMBER_FORMATS
+    ];
 
   const replacePattern = subscriberNumber.length === 5 ? '$1 $2' : '$1 $2 $3';
 
