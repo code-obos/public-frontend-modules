@@ -1,5 +1,36 @@
 import { replaceIfMatch } from './utils';
 
+// Regular phone number format is: 00 00 00 00
+// if the number starts with 8, it's an 800-series number, with the format: 800 00 000
+// See https://sprakradet.no/godt-og-korrekt-sprak/rettskriving-og-grammatikk/tall-tid-dato/
+const REGULAR_PHONE_NUMBER_FORMAT = /^(\d{2})(\d{2})(\d{2})(\d{2})$/;
+const EIGHT_HUNDRED_SERIES_PHONE_NUMBER_FORMAT = /^(\d{3})(\d{2})(\d{3})$/;
+
+/**
+ * Format a phone number
+ * @example
+ * ```
+ * formatPhoneNumber('00000000') // => '00 00 00 00'
+ * formatPhoneNumber('80000000') // => '800 00 000'
+ * ```
+ */
+export function formatPhoneNumber(input: string): string {
+  const number = replaceIfMatch(
+    input,
+    REGULAR_PHONE_NUMBER_FORMAT,
+    '$1 $2 $3 $4',
+  );
+
+  // if the number starts with 8, it's an 800-series number, so we'll format it differently
+  return number.startsWith('8')
+    ? replaceIfMatch(
+        number,
+        EIGHT_HUNDRED_SERIES_PHONE_NUMBER_FORMAT,
+        '$1 $2 $3',
+      )
+    : number;
+}
+
 const ORG_NUMBER_FORMAT = /^(\d{3})(\d{3})(\d{3})$/;
 
 /**
