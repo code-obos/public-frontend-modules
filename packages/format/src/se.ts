@@ -68,5 +68,16 @@ export function formatOrganizationNumber(input: string): string {
   return replaceIfMatch(input, ORG_NUMBER_FORMAT, '$1-$2');
 }
 
+/**
+ * Format a postal code
+ * @example
+ * ```
+ * format('00000') // => '000 00'
+ * ```
+ */
+export function formatPostalCode(input: string): string {
+  return input;
+}
+
 // just reexport the no method for API feature parity
 export { formatObosMembershipNumber } from './no';

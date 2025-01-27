@@ -56,3 +56,14 @@ const OBOS_MEMBERSHIP_NUMBER_FORMAT = /^(\d{3})(\d{2})(\d{2})$/;
 export function formatObosMembershipNumber(input: string): string {
   return replaceIfMatch(input, OBOS_MEMBERSHIP_NUMBER_FORMAT, '$1 $2 $3');
 }
+
+/**
+ * Format a postal code
+ * @example
+ * ```
+ * format('0000') // => '0000'
+ * ```
+ */
+export function formatPostalCode(input: string): string {
+  return input;
+}
