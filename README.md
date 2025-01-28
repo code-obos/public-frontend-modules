@@ -6,6 +6,7 @@ This a monorepo of OBOS' open source frontend modules.
 ## Packages
 
 * [format](./packages/format)
+* [validation](./packages/validation)
 
 ## Contributing
 
