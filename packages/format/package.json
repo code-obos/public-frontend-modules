@@ -5,6 +5,11 @@
   "repository": {
     "url": "https://github.com/code-obos/public-frontend-modules"
   },
+  "keywords": [
+    "OBOS",
+    "format",
+    "formatting"
+  ],
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
