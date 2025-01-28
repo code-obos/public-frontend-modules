@@ -74,7 +74,7 @@ const POSTAL_CODE_FORMAT = /^(\d{3})(\d{2})$/;
  * Format a postal code
  * @example
  * ```
- * format('00000') // => '000 00'
+ * formatPostalCode('00000') // => '000 00'
  * ```
  */
 export function formatPostalCode(input: string): string {
