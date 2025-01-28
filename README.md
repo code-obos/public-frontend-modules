@@ -1,6 +1,6 @@
 # OBOS public frontend modules
 
-This a monorepo of modules and components that enhances or is built on top of the core components in [Grunnmuren, OBOS' design system](https://github.com/code-obos/grunnmuren).
+This a monorepo of OBOS' open source frontend modules.
 
 
 ## Packages
