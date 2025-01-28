@@ -39,3 +39,4 @@ formatOrganizationNumber('0000000000') // => '000000-0000'
 * formatPhoneNumber
 * formatOrganizationNumber
 * formatObosMembershipNumber
+* formatPostalCode

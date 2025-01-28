@@ -3,11 +3,13 @@ import {
   formatObosMembershipNumber as formatObosMembershipNumberNo,
   formatOrganizationNumber as formatOrganizationNumberNo,
   formatPhoneNumber as formatPhoneNumberNo,
+  formatPostalCode as formatPostalCodeNo,
 } from './no';
 import {
   formatObosMembershipNumber as formatObosMembershipNumberSe,
   formatOrganizationNumber as formatOrganizationNumberSe,
   formatPhoneNumber as formatPhoneNumberSe,
+  formatPostalCode as formatPostalCodeSe,
 } from './se';
 
 describe('no', () => {
@@ -26,6 +28,13 @@ describe('no', () => {
   ])('formatOrganizationNumber(%s) -> %s', (input, expected) => {
     expect(formatOrganizationNumberNo(input)).toBe(expected);
   });
+
+  test.each([['0000', '0000']])(
+    'formatPostalCode(%s) -> %s',
+    (input, expected) => {
+      expect(formatPostalCodeNo(input)).toBe(expected);
+    },
+  );
 });
 
 describe('se', () => {
@@ -63,6 +72,13 @@ describe('se', () => {
     ['abc', 'abc'],
   ])('formatOrganizationNumber(%s) -> %s', (input, expected) => {
     expect(formatOrganizationNumberSe(input)).toBe(expected);
+  });
+
+  test.each([
+    ['00000', '000 00'],
+    ['000 00', '000 00'],
+  ])('formatPostalCode(%s) -> %s', (input, expected) => {
+    expect(formatPostalCodeSe(input)).toBe(expected);
   });
 });
 

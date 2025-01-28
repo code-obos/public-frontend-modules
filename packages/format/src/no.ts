@@ -57,13 +57,16 @@ export function formatObosMembershipNumber(input: string): string {
   return replaceIfMatch(input, OBOS_MEMBERSHIP_NUMBER_FORMAT, '$1 $2 $3');
 }
 
+const POSTAL_CODE_FORMAT = /^(\d{4})$/;
+
 /**
  * Format a postal code
+ *
  * @example
  * ```
  * format('0000') // => '0000'
  * ```
  */
 export function formatPostalCode(input: string): string {
-  return input;
+  return replaceIfMatch(input, POSTAL_CODE_FORMAT, '$1');
 }

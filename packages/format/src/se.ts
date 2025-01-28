@@ -68,6 +68,8 @@ export function formatOrganizationNumber(input: string): string {
   return replaceIfMatch(input, ORG_NUMBER_FORMAT, '$1-$2');
 }
 
+const POSTAL_CODE_FORMAT = /^(\d{3})(\d{2})$/;
+
 /**
  * Format a postal code
  * @example
@@ -76,7 +78,7 @@ export function formatOrganizationNumber(input: string): string {
  * ```
  */
 export function formatPostalCode(input: string): string {
-  return input;
+  return replaceIfMatch(input, POSTAL_CODE_FORMAT, '$1 $2');
 }
 
 // just reexport the no method for API feature parity
