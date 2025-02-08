@@ -18,8 +18,8 @@ importers:
         specifier: 2.27.12
         version: 2.27.12
       bunchee:
-        specifier: 6.3.2
-        version: 6.3.2(typescript@5.7.3)
+        specifier: 6.3.3
+        version: 6.3.3(typescript@5.7.3)
       typescript:
         specifier: 5.7.3
         version: 5.7.3
@@ -652,8 +652,8 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-  bunchee@6.3.2:
-    resolution: {integrity: sha512-f7EIySdCuzCsT4TLKQSH9OgH57R8HqEwToebt60P3b1sW4UYID8lRZ+wvZPoR01CW0jNzNuRGKGzY5ZNAMtZVQ==}
+  bunchee@6.3.3:
+    resolution: {integrity: sha512-ZpFm50nbpGfy8Nne7uEDx+dfqOGHz/0Qj3u2v2FVAO3W+2wDNUatEVxDF86RoL2Q60sCybei5clMZMuSuq/vXA==}
     engines: {node: '>= 18.0.0'}
     hasBin: true
     peerDependencies:
@@ -2011,7 +2011,7 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  bunchee@6.3.2(typescript@5.7.3):
+  bunchee@6.3.3(typescript@5.7.3):
     dependencies:
       '@rollup/plugin-commonjs': 28.0.2(rollup@4.32.0)
       '@rollup/plugin-json': 6.1.0(rollup@4.32.0)
