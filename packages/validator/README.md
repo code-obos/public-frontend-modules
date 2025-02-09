@@ -3,7 +3,7 @@
 [![NPM Version](https://img.shields.io/npm/v/%40obosbbl%2Fvalidation)](https://www.npmjs.com/package/@obosbbl/validation)
 
 
-A collection of validation utilities for both 🇳🇴 and 🇸🇪 with zero dependencies.
+A collection of validation utilities for both 🇳🇴 and 🇸🇪 with zero dependencies. Integrates neatly with [Zod](https://github.com/colinhacks/zod).
 
 ## Install
 
@@ -36,3 +36,5 @@ postalCodeValidator('000 000') // => false
 ## Methods
 
 * validatePostalCode
+* validatePhoneNumber
+* validateOrganizationNumber
