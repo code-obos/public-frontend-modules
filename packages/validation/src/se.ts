@@ -52,7 +52,8 @@ export function validatePhoneNumber(
   }
 
   if (options.mobileOnly) {
-    const isMobileNumber = /^07\d{8}$/.test(value);
+    // Mobile numbers start with 07, followed by 0/2/3/6/9 and is 10 digits long
+    const isMobileNumber = /^07[02369]\d{7}$/.test(value);
     return isMobileNumber;
   }
 

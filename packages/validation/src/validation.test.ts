@@ -70,8 +70,21 @@ describe('se', () => {
     ['031-123 45', false, { allowFormatting: false }],
 
     // mobile only
+    // test all valid area codes (070, 072, 073, 076, 079)
     ['0701234567', true, { mobileOnly: true }],
+    ['0711234567', false, { mobileOnly: true }],
+    ['0721234567', true, { mobileOnly: true }],
+    ['0731234567', true, { mobileOnly: true }],
+    ['0741234567', false, { mobileOnly: true }],
+    ['0751234567', false, { mobileOnly: true }],
+    ['0761234567', true, { mobileOnly: true }],
+    ['0771234567', false, { mobileOnly: true }],
+    ['0781234567', false, { mobileOnly: true }],
+    ['0791234567', true, { mobileOnly: true }],
+    // landline
     ['031123456', false, { mobileOnly: true }],
+    // too long
+    ['07012345678', false, { mobileOnly: true }],
   ])('validatePhoneNumber(%s) -> %s', (input, expected, options) => {
     expect(se.validatePhoneNumber(input, options)).toBe(expected);
   });
