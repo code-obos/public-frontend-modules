@@ -29,6 +29,8 @@ importers:
 
   packages/format: {}
 
+  packages/validation: {}
+
 packages:
 
   '@andrewbranch/untar.js@1.0.3':
