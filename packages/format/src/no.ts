@@ -69,3 +69,16 @@ const POSTAL_CODE_FORMAT = /^(\d{4})$/;
 export function formatPostalCode(input: string): string {
   return replaceIfMatch(input, POSTAL_CODE_FORMAT, '$1');
 }
+
+const BANK_ACCOUNT_NUMBER_FORMAT = /^(\d{4})\d{2}\d{5}$/;
+
+/**
+ * Format a bank account number
+ * @example
+ * ```
+ * formatBankAccountNumber('00000000000') // => '0000 00 00000'
+ * ```
+ */
+export function formatBankAccountNumber(input: string): string {
+  return replaceIfMatch(input, BANK_ACCOUNT_NUMBER_FORMAT, '$1 $2 $3');
+}

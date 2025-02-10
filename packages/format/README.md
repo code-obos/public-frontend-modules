@@ -45,3 +45,4 @@ formatOrganizationNumber('0000000000') // => '000000-0000'
 * formatOrganizationNumber
 * formatObosMembershipNumber
 * formatPostalCode
+* formatBankAccountNumber
