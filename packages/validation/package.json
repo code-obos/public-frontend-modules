@@ -5,6 +5,12 @@
   "repository": {
     "url": "https://github.com/code-obos/public-frontend-modules"
   },
+  "keywords": [
+    "OBOS",
+    "validate",
+    "validation",
+    "validator"
+  ],
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
