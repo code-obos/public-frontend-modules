@@ -1,38 +1,51 @@
+import type { ValidatorOptions } from './types';
 import { stripFormatting } from './utils';
 
-type PostalCodeOptions = {
-  /**
-   * Disallow formatting characters
-   * @default false
-   */
-  strict?: boolean;
-};
+type PostalCodeOptions = ValidatorOptions;
 
 /**
- * Validates the input value as a valid Swedish postal (zip) code.
- * Valid format is either `00 000` or `00000`.
+ * Validates that the input value is a Swedish postal (zip) code.
+ * @example
+ * ```
+ * validatePostalCode('00000') // => true
+ * ```
  */
 export function validatePostalCode(
   value: string,
   options: PostalCodeOptions = {},
 ): boolean {
-  if (!options.strict) {
+  if (options.allowFormatting) {
     value = stripFormatting(value);
   }
 
   return /^\d{3} ?\d{2}$/.test(value);
 }
 
-type PhoneNumberOptions = {
+type PhoneNumberOptions = ValidatorOptions & {
+  /**
+   * Whether it should be a mobile number
+   * @default false
+   */
   mobileOnly?: boolean;
-  strict?: boolean;
 };
 
+/**
+ * Validates that the input value is a Swedish phone number.
+ *
+ * Supports mobile only validation.
+ * @example
+ * ```
+ * validatePhoneNumber('00000000') // => true
+ * validatePhoneNumber('000000000') // => true
+ * validatePhoneNumber('0000000000') // => true
+ * validatePhoneNumber('0700000000', { mobileOnly: true }) // => true
+ * ```
+ */
 export function validatePhoneNumber(
   value: string,
   options: PhoneNumberOptions = {},
 ): boolean {
-  if (!options.strict) {
+  if (options.allowFormatting) {
     value = stripFormatting(value);
   }
 
@@ -46,11 +59,21 @@ export function validatePhoneNumber(
   return isPhoneNumber;
 }
 
+type OrganizationNumberOptions = ValidatorOptions;
+
+/**
+ * Validates that the input value is a {@link https://www.skatteverket.se/foretagochorganisationer/foretagare/startaochregistrera/organisationsnummer.4.361dc8c15312eff6fd235d1.html Swedish organization number}.
+ * @example
+ * ```
+ * validateOrganizationNumber('000000000') // => true
+ * ```
+ */
 export function validateOrganizationNumber(
   value: string,
-  options: PhoneNumberOptions = {},
+  options: OrganizationNumberOptions = {},
 ): boolean {
-  if (!options.strict) {
+  // TODO: Implement proper validation
+  if (options.allowFormatting) {
     value = stripFormatting(value);
   }
 

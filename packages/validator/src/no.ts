@@ -1,46 +1,49 @@
+import type { ValidatorOptions } from './types';
 import { mod11, stripFormatting } from './utils';
 
-type PostalCodeOptions = {
-  /**
-   * Disallow formatting characters
-   * @default false
-   */
-  strict?: boolean;
-};
+type PostalCodeOptions = ValidatorOptions;
 
 /**
- * Validates the input value as a valid Norwegian postal (zip) code.
- * Valid format is `0000`.
+ * Validates that the input value is a Norwegian postal (zip) code.
+ * @example
+ * ```
+ * validatePostalCode('0000') // => true
+ * ```
  */
 export function validatePostalCode(
   value: string,
   options: PostalCodeOptions = {},
 ): boolean {
-  if (!options.strict) {
+  if (options.allowFormatting) {
     value = stripFormatting(value);
   }
 
   return /^\d{4}$/.test(value);
 }
 
-type PhoneNumberOptions = {
+type PhoneNumberOptions = ValidatorOptions & {
   /**
    * Whether it should be a mobile number
    * @default false
    */
   mobileOnly?: boolean;
-  /**
-   * Disallow formatting characters
-   * @default false
-   */
-  strict?: boolean;
 };
 
+/**
+ * Validates that the input value is a Norwegian phone number.
+ *
+ * Supports mobile only validation.
+ * @example
+ * ```
+ * validatePhoneNumber('00000000') // => true
+ * validatePhoneNumber('90000000', { mobileOnly: true }) // => true
+ * ```
+ */
 export function validatePhoneNumber(
   value: string,
   options: PhoneNumberOptions = {},
 ): boolean {
-  if (!options.strict) {
+  if (options.allowFormatting) {
     value = stripFormatting(value);
   }
 
@@ -55,11 +58,23 @@ export function validatePhoneNumber(
   return isPhoneNumber;
 }
 
+type OrganizationNumberOptions = ValidatorOptions;
+
 /**
- * Validates the input value as a valid {@link https://www.brreg.no/om-oss/registrene-vare/om-enhetsregisteret/organisasjonsnummeret/ Norwegian organization number}.
- * Valid format is 9 digits, spaces allowed, eg `000000000` or `000 000 000`.
+ * Validates that the input value is a {@link https://www.brreg.no/om-oss/registrene-vare/om-enhetsregisteret/organisasjonsnummeret/ Norwegian organization number}.
+ * @example
+ * ```
+ * validateOrganizationNumber('000000000') // => true
+ * ```
  */
-export function validateOrganizationNumber(value: string): boolean {
+export function validateOrganizationNumber(
+  value: string,
+  options: PhoneNumberOptions = {},
+): boolean {
+  if (options.allowFormatting) {
+    value = stripFormatting(value);
+  }
+
   /** References:
    * https://www.brreg.no/om-oss/registrene-vare/om-enhetsregisteret/organisasjonsnummeret/
    * https://no.wikipedia.org/wiki/Organisasjonsnummer
