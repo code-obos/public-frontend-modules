@@ -25,6 +25,13 @@ describe('no', () => {
       expect(no.formatPostalCode(input)).toBe(expected);
     },
   );
+
+  test.each([
+    ['00000000000', '0000 00 00000'],
+    ['0000.00.00000', '0000 00 00000'],
+  ])('formatBankAccountNumber(%s) -> %s', (input, expected) => {
+    expect(no.formatBankAccountNumber(input)).toBe(expected);
+  });
 });
 
 describe('se', () => {

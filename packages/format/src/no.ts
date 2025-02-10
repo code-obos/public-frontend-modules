@@ -70,7 +70,7 @@ export function formatPostalCode(input: string): string {
   return replaceIfMatch(input, POSTAL_CODE_FORMAT, '$1');
 }
 
-const BANK_ACCOUNT_NUMBER_FORMAT = /^(\d{4})\d{2}\d{5}$/;
+const BANK_ACCOUNT_NUMBER_FORMAT = /^(\d{4})(\d{2})(\d{5})$/;
 
 /**
  * Format a bank account number
