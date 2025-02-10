@@ -1,23 +1,13 @@
 import { describe, expect, test } from 'vitest';
-import {
-  formatObosMembershipNumber as formatObosMembershipNumberNo,
-  formatOrganizationNumber as formatOrganizationNumberNo,
-  formatPhoneNumber as formatPhoneNumberNo,
-  formatPostalCode as formatPostalCodeNo,
-} from './no';
-import {
-  formatObosMembershipNumber as formatObosMembershipNumberSe,
-  formatOrganizationNumber as formatOrganizationNumberSe,
-  formatPhoneNumber as formatPhoneNumberSe,
-  formatPostalCode as formatPostalCodeSe,
-} from './se';
+import * as no from './no';
+import * as se from './se';
 
 describe('no', () => {
   test.each([
     ['22865500', '22 86 55 00'],
     ['80000000', '800 00 000'],
   ])('formatPhoneNumber(%s) -> %s', (input, expected) => {
-    expect(formatPhoneNumberNo(input)).toBe(expected);
+    expect(no.formatPhoneNumber(input)).toBe(expected);
   });
 
   test.each([
@@ -26,13 +16,13 @@ describe('no', () => {
     ['000-000-000', '000 000 000'],
     ['abc', 'abc'],
   ])('formatOrganizationNumber(%s) -> %s', (input, expected) => {
-    expect(formatOrganizationNumberNo(input)).toBe(expected);
+    expect(no.formatOrganizationNumber(input)).toBe(expected);
   });
 
   test.each([['0000', '0000']])(
     'formatPostalCode(%s) -> %s',
     (input, expected) => {
-      expect(formatPostalCodeNo(input)).toBe(expected);
+      expect(no.formatPostalCode(input)).toBe(expected);
     },
   );
 });
@@ -60,7 +50,7 @@ describe('se', () => {
     // invalid, too long a number
     ['0303123456789', '0303123456789'],
   ])('formatPhoneNumber(%s) -> %s', (input, expected) => {
-    expect(formatPhoneNumberSe(input)).toBe(expected);
+    expect(se.formatPhoneNumber(input)).toBe(expected);
   });
 
   test.each([
@@ -71,14 +61,14 @@ describe('se', () => {
     ['000', '000'],
     ['abc', 'abc'],
   ])('formatOrganizationNumber(%s) -> %s', (input, expected) => {
-    expect(formatOrganizationNumberSe(input)).toBe(expected);
+    expect(se.formatOrganizationNumber(input)).toBe(expected);
   });
 
   test.each([
     ['00000', '000 00'],
     ['000 00', '000 00'],
   ])('formatPostalCode(%s) -> %s', (input, expected) => {
-    expect(formatPostalCodeSe(input)).toBe(expected);
+    expect(se.formatPostalCode(input)).toBe(expected);
   });
 });
 
@@ -89,6 +79,6 @@ test.each([
 ])('formatObosMembershipNumber(%s) -> %s', (input, expected) => {
   // don't split these by country, since they're essentially the same method
   // we still test both though, to ensure there's no difference between them
-  expect(formatObosMembershipNumberNo(input)).toBe(expected);
-  expect(formatObosMembershipNumberSe(input)).toBe(expected);
+  expect(no.formatObosMembershipNumber(input)).toBe(expected);
+  expect(se.formatObosMembershipNumber(input)).toBe(expected);
 });
