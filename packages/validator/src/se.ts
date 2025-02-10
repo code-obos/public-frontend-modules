@@ -15,10 +15,11 @@ export function validatePostalCode(
   options: PostalCodeOptions = {},
 ): boolean {
   if (options.allowFormatting) {
+    // biome-ignore lint/style/noParameterAssign:
     value = stripFormatting(value);
   }
 
-  return /^\d{3} ?\d{2}$/.test(value);
+  return /^\d{5}$/.test(value);
 }
 
 type PhoneNumberOptions = ValidatorOptions & {
@@ -46,6 +47,7 @@ export function validatePhoneNumber(
   options: PhoneNumberOptions = {},
 ): boolean {
   if (options.allowFormatting) {
+    // biome-ignore lint/style/noParameterAssign:
     value = stripFormatting(value);
   }
 
@@ -72,8 +74,9 @@ export function validateOrganizationNumber(
   value: string,
   options: OrganizationNumberOptions = {},
 ): boolean {
-  // TODO: Implement proper validation
+  // TODO: Implement checksum validation. For now it only checks the number of digits.
   if (options.allowFormatting) {
+    // biome-ignore lint/style/noParameterAssign:
     value = stripFormatting(value);
   }
 

@@ -15,6 +15,7 @@ export function validatePostalCode(
   options: PostalCodeOptions = {},
 ): boolean {
   if (options.allowFormatting) {
+    // biome-ignore lint/style/noParameterAssign:
     value = stripFormatting(value);
   }
 
@@ -44,6 +45,7 @@ export function validatePhoneNumber(
   options: PhoneNumberOptions = {},
 ): boolean {
   if (options.allowFormatting) {
+    // biome-ignore lint/style/noParameterAssign:
     value = stripFormatting(value);
   }
 
@@ -72,6 +74,7 @@ export function validateOrganizationNumber(
   options: PhoneNumberOptions = {},
 ): boolean {
   if (options.allowFormatting) {
+    // biome-ignore lint/style/noParameterAssign:
     value = stripFormatting(value);
   }
 

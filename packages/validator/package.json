@@ -23,8 +23,5 @@
   ],
   "scripts": {
     "build": "bunchee"
-  },
-  "devDependencies": {
-    "zod": "^3.24.1"
   }
 }

@@ -3,7 +3,7 @@
 [![NPM Version](https://img.shields.io/npm/v/%40obosbbl%2Fvalidation)](https://www.npmjs.com/package/@obosbbl/validation)
 
 
-A collection of validation methods for both 🇳🇴 and 🇸🇪 with zero dependencies. Integrates neatly with [Zod](https://github.com/colinhacks/zod).
+A collection of validation methods for both 🇳🇴 and 🇸🇪 with zero dependencies.
 
 ## Install
 
@@ -22,37 +22,72 @@ The package has two entrypoints, one for `no` and one for `se`. That allows you 
 
 ```js
 // 🇳🇴 example
-import { postalCodeValidator } from '@obosbbl/validation/no';
-postalCodeValidator('0000') // => true
+import { validateOrganizationNumber } from '@obosbbl/validation/no';
+validateOrganizationNumber('937052766') // => true
 
-postalCodeValidator('00000') // => false
+validateOrganizationNumber('000') // => false
 
 // 🇸🇪 example
-import { postalCodeValidator } from '@obosbbl/validation/no';
-postalCodeValidator('00000') // => true
-postalCodeValidator('00 000') // => true
+import { validateOrganizationNumer } from '@obosbbl/validation/se';
+validateOrganizationNumber('5592221054') // => true
 
-postalCodeValidator('000 000') // => false
+validateOrganizationNumber('000') // => false
 ```
 
-## Strictness
+## Strictness and formatting characters
 
-By default, the methods allows formatting characters when validating. If you need strict validation, you can pass the `strict` option to the method.
+The methods are "strict" by default, meaning no formatting characters in the input is allowed.
+This is preferrable, for instance when doing server-side validation, where the input is often expected to be a "clean" value.
+
+If you want to allow formatting characters in the input, you can pass `allowFormatting: true` in the options object to the method.
+Note that this currently allows any formatting characters, not just the just the "expected" ones for the input type.
+
 
 ```js
 import { validateOrganizationNumber } from '@obosbbl/validation/no';
 
-validateOrganizationNumber('937 052 766') // true;
-
-validateOrganizationNumber('937052766', { strict: true }) // true;
-validateOrganizationNumber('937 052 766', { strict: true }) // false;
+validateOrganizationNumber('937052766') // true
+// formatting characters disallowed by default
+validateOrganizationNumber('937 052 766') // false;
+// allow formatting characters
+validateOrganizationNumber('937 052 766', { allowFormatting: true }) // true;
 ```
-
-```js
 
 ## Methods
 
 * validatePostalCode
 * validatePhoneNumber
-   * supports mobileOnly option
+  * supports mobileOnly option
 * validateOrganizationNumber
+  * Check digit verification is currently only implemented for Norwegian organization numbers. For Swedish organiation numbers, we only check the length of the input. PRs are welcome to fix this.
+
+## Example usage with Zod
+
+```js
+import { z } from 'zod';
+import { validatePhoneNumber } from '@obosbbl/validation/no';
+
+const mobileOnlySchema = z.object({
+  name: z.string(),
+  phoneNumber: z
+    .string()
+    .refine(
+      (val) => validatePhoneNumber(val, { mobileOnly: true }),
+      'Telefonnummeret er ikke et gyldig mobilnummer',
+    ),
+});
+
+const validData = {
+  name: 'Kari Nordmann',
+  phoneNumber: '92345678',
+};
+
+mobileOnlySchema.parse(validData); // => { name: 'Kari Nordmann', phoneNumber: '92345678' }
+
+const invalidData = {
+  name: 'Ola Nordmann',
+  phoneNumber: '22865500',
+}
+
+mobileOnlySchema.parse(invalidData); // => throws ZodError
+```
