@@ -44,6 +44,20 @@ describe('no', () => {
   ])('validateOrganizationNumber(%s) -> %s', (input, expected, options) => {
     expect(no.validateOrganizationNumber(input, options)).toBe(expected);
   });
+
+  test.each([
+    ['1234567', true, undefined],
+    // too short
+    ['123456', false, undefined],
+    // too long
+    ['12345678', false, undefined],
+
+    // formatting
+    ['123 45 67', false, { allowFormatting: false }],
+    ['123 45 67', true, { allowFormatting: true }],
+  ])('validateObosMembershipNumber(%s) -> %s', (input, expected, options) => {
+    expect(no.validateObosMembershipNumber(input, options)).toBe(expected);
+  });
 });
 
 describe('se', () => {
@@ -100,5 +114,19 @@ describe('se', () => {
     ['559222-1054', true, { allowFormatting: true }],
   ])('validateOrganizationNumber(%s) -> %s', (input, expected, options) => {
     expect(se.validateOrganizationNumber(input, options)).toBe(expected);
+  });
+
+  test.each([
+    ['1234567', true, undefined],
+    // too short
+    ['123456', false, undefined],
+    // too long
+    ['12345678', false, undefined],
+
+    // formatting
+    ['123 45 67', false, { allowFormatting: false }],
+    ['123 45 67', true, { allowFormatting: true }],
+  ])('validateObosMembershipNumber(%s) -> %s', (input, expected, options) => {
+    expect(se.validateObosMembershipNumber(input, options)).toBe(expected);
   });
 });

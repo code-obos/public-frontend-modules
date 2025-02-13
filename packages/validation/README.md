@@ -28,7 +28,7 @@ validateOrganizationNumber('937052766') // => true
 validateOrganizationNumber('000') // => false
 
 // 🇸🇪 example
-import { validateOrganizationNumer } from '@obosbbl/validation/se';
+import { validateOrganizationNumber } from '@obosbbl/validation/se';
 validateOrganizationNumber('5592221054') // => true
 
 validateOrganizationNumber('000') // => false
@@ -47,8 +47,10 @@ Note that this currently allows any formatting characters, not just the just the
 import { validateOrganizationNumber } from '@obosbbl/validation/no';
 
 validateOrganizationNumber('937052766') // true
+
 // formatting characters disallowed by default
 validateOrganizationNumber('937 052 766') // false;
+
 // allow formatting characters
 validateOrganizationNumber('937 052 766', { allowFormatting: true }) // true;
 ```
@@ -60,6 +62,8 @@ validateOrganizationNumber('937 052 766', { allowFormatting: true }) // true;
   * supports mobileOnly option
 * validateOrganizationNumber
   * Check digit verification is currently only implemented for Norwegian organization numbers. For Swedish organiation numbers, we only check the length of the input. PRs are welcome to fix this.
+* validateObosMembershipNumber
+
 
 ## Example usage with Zod
 
