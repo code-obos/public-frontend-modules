@@ -84,3 +84,22 @@ export function validateOrganizationNumber(
    */
   return mod11(value, [3, 2, 7, 6, 5, 4, 3, 2]);
 }
+
+/**
+ * Validates that the input value is an OBOS membership number.
+ * @example
+ * ```
+ * validateObosMembershipNumber('0000000') // => true
+ * ```
+ */
+export function validateObosMembershipNumber(
+  value: string,
+  options: PostalCodeOptions = {},
+): boolean {
+  if (options.allowFormatting) {
+    // biome-ignore lint/style/noParameterAssign:
+    value = stripFormatting(value);
+  }
+
+  return /^\d{7}$/.test(value);
+}

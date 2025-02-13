@@ -83,3 +83,6 @@ export function validateOrganizationNumber(
 
   return /^\d{10}$/.test(value);
 }
+
+// just reexport the no method for API feature parity
+export { validateObosMembershipNumber } from './no';
