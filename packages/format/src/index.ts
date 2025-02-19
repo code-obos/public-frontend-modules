@@ -17,11 +17,15 @@ type Options = {
 };
 
 /**
- * Format a phone number
+ * Format a phone number.
+ *
+ * Country code can be present in the input, but it will be removed in the formatted output.
+ *
  * @example
  * ```
  * formatPhoneNumber('00000000', { locale: 'no' }) // => '00 00 00 00'
  * formatPhoneNumber('07012345678', { locale: 'se' }) // => '070-123 45 678'
+ * formatPhoneNumber('+4700000000', { locale: 'no' }) // => '00 00 00 00'
  * ```
  */
 export function formatPhoneNumber(input: string, options: Options): string {

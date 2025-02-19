@@ -16,6 +16,8 @@ describe('no', () => {
   test.each([
     ['22865500', '22 86 55 00'],
     ['80000000', '800 00 000'],
+    // with country code
+    ['+4722865500', '22 86 55 00'],
   ])('formatPhoneNumber(%s) -> %s', (input, expected) => {
     expect(formatPhoneNumberNo(input)).toBe(expected);
   });
@@ -57,6 +59,8 @@ describe('se', () => {
     ['0303123456', '0303-12 34 56'],
     ['03031234567', '0303-123 45 67'],
     ['030312345678', '0303-123 456 78'],
+    // with country code
+    ['+46303123456', '0303-12 34 56'],
     // invalid, too long a number
     ['0303123456789', '0303123456789'],
   ])('formatPhoneNumber(%s) -> %s', (input, expected) => {
