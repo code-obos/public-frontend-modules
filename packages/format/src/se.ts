@@ -14,16 +14,23 @@ const THREE_DIGIT_AREA_CODE =
   /^0(11|13|16|18|19|21|23|26|31|33|35|36|40|42|44|46|54|60|63|90)/;
 
 /**
- * Format a phone number
+ * Format a phone number.
+ *
+ * Country code can be present in the input, but it will be removed in the formatted output.
+ *
  * @example
  * ```
  * formatPhoneNumber('07012345678') // => '070-123 45 678'
  * formatPhoneNumber('0812345') // => '08-123 45'
  * formatPhoneNumber('0311234567') // => '031-123 45 67'
  * formatPhoneNumber('0303123456') // => '0303-12 34 56'
+ * formatPhoneNumber('+46303123456') // => '0303-12 34 56'
  * ```
  */
 export function formatPhoneNumber(input: string): string {
+  // biome-ignore lint/style/noParameterAssign:
+  input = input.replace(/^\+46/, '0');
+
   const normalizedInput = cleanInput(input);
 
   if (MOBILE_PHONE_NUMBER_FORMAT.test(normalizedInput)) {
