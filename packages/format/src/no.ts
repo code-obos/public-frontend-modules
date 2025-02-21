@@ -7,14 +7,22 @@ const REGULAR_PHONE_NUMBER_FORMAT = /^(\d{2})(\d{2})(\d{2})(\d{2})$/;
 const EIGHT_HUNDRED_SERIES_PHONE_NUMBER_FORMAT = /^(\d{3})(\d{2})(\d{3})$/;
 
 /**
- * Format a phone number
+ * Format a phone number.
+ *
+ * Country code can be present in the input, but it will be removed in the formatted output.
+ *
  * @example
  * ```
  * formatPhoneNumber('00000000') // => '00 00 00 00'
  * formatPhoneNumber('80000000') // => '800 00 000'
+ * formatPhoneNumber('+4700000000') // => '00 00 00 00'
  * ```
  */
 export function formatPhoneNumber(input: string): string {
+  // remove country code
+  // biome-ignore lint/style/noParameterAssign:
+  input = input.replace(/^\+47/, '');
+
   const number = replaceIfMatch(
     input,
     REGULAR_PHONE_NUMBER_FORMAT,

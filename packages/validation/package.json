@@ -1,23 +1,20 @@
 {
-  "name": "@obosbbl/format",
-  "version": "0.3.1",
-  "description": "A collection of formatting methods for OBOS",
+  "name": "@obosbbl/validation",
+  "version": "0.2.0",
+  "description": "A collection of validation methods for OBOS",
   "repository": {
     "url": "https://github.com/code-obos/public-frontend-modules"
   },
   "keywords": [
     "OBOS",
-    "format",
-    "formatting"
+    "validate",
+    "validation",
+    "validator"
   ],
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
-    },
     "./no": {
       "types": "./dist/no.d.mts",
       "default": "./dist/no.mjs"
@@ -32,6 +29,5 @@
   ],
   "scripts": {
     "build": "bunchee"
-  },
-  "dependencies": {}
+  }
 }
