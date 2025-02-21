@@ -11,7 +11,7 @@ const SUBSCRIBER_NUMBER_FORMATS = {
 // SE numbers have area codes of 2, 3 or 4 digits
 const TWO_DIGIT_AREA_CODE = /^08/;
 const THREE_DIGIT_AREA_CODE =
-  /^0(11|13|16|18|19|21|23|26|31|33|35|36|40|42|44|46|54|60|63|90)/;
+  /^0(10|11|13|16|18|19|21|23|26|31|33|35|36|40|42|44|46|54|60|63|90)/;
 
 /**
  * Format a phone number.
