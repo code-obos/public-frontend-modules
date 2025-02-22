@@ -1,6 +1,6 @@
 {
   "name": "@obosbbl/format",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A collection of formatting methods for OBOS",
   "repository": {
     "url": "https://github.com/code-obos/public-frontend-modules"
