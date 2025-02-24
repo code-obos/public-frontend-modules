@@ -107,15 +107,16 @@ export function validateObosMembershipNumber(
 type PersonalIdentityNumberOptions = ValidatorOptions;
 
 /**
- * Validates that the input value is a Norwegian personal identity number.
+ * Validates that the input value is a Norwegian national identity number.
  *
- * Supports both Fødselsnummer, D-numbers and H-numbers.
+ * Supports both fødselsnummer and d-number.
  * @example
  * ```
- * validatePersonalIdentityNumber('0000000') // => true
+ * validatePersonalIdentityNumber('21075417753') // => true
+ * validatePersonalIdentityNumber('61075440676') // => true
  * ```
  */
-export function validatePersonalIdentityNumber(
+export function validateNationalIdentityNumber(
   value: string,
   options: PersonalIdentityNumberOptions = {},
 ): boolean {
@@ -124,6 +125,7 @@ export function validatePersonalIdentityNumber(
     value = stripFormatting(value);
   }
 
+  // Fødselsn
   // Fødselsnummer and d numbers have two control digits.
   // where the first one is calculated using the first 10 digits.
   const valueForControlDigit1 = value.slice(0, -1);
@@ -133,23 +135,18 @@ export function validatePersonalIdentityNumber(
   );
   const controlDigit2 = mod11(value, [5, 4, 3, 2, 7, 6, 5, 4, 3, 2]);
 
-  if (!controlDigit1 && controlDigit2) {
+  if (!controlDigit1 && !controlDigit2) {
     return false;
   }
 
   let day = Number(value.substring(0, 2));
-  let month = Number(value.substring(2, 4));
+  const month = Number(value.substring(2, 4));
   const year = Number(value.substring(4, 6));
 
-  switch (true) {
-    // d number
-    case value[0] >= 4:
-      day = day - 40;
-      break;
-    // h number
-    case value[2] >= 4:
-      month = month - 40;
-      break;
+  // for a d-number the first digit is increased by 4. Eg the 31st of a month would be 71, or the 3rd would be 43.
+  // thus we need to subtract 40 to get the correct day of the month
+  if (day >= 40) {
+    day = day - 40;
   }
 
   const date = new Date(Date.UTC(year, month - 1, day));

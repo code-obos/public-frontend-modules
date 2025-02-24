@@ -60,15 +60,15 @@ describe('no', () => {
     expect(no.validateObosMembershipNumber(input, options)).toBe(expected);
   });
 
-  test('validatePersonalIdentityNumber()', () => {
+  test('validateNationalIdentityNumber()', () => {
     for (let i = 0; i < 1000; ++i) {
       expect(
-        no.validatePersonalIdentityNumber(
+        no.validateNationalIdentityNumber(
           navfaker.personIdentifikator.fødselsnummer(),
         ),
       ).toBe(true);
       expect(
-        no.validatePersonalIdentityNumber(
+        no.validateNationalIdentityNumber(
           navfaker.personIdentifikator.dnummer(),
         ),
       ).toBe(true);
