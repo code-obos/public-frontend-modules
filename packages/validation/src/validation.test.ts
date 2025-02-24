@@ -1,3 +1,4 @@
+import navfaker from 'nav-faker/dist/index';
 import { describe, expect, test } from 'vitest';
 import * as no from './no';
 import * as se from './se';
@@ -57,6 +58,21 @@ describe('no', () => {
     ['123 45 67', true, { allowFormatting: true }],
   ])('validateObosMembershipNumber(%s) -> %s', (input, expected, options) => {
     expect(no.validateObosMembershipNumber(input, options)).toBe(expected);
+  });
+
+  test('validatePersonalIdentityNumber()', () => {
+    for (let i = 0; i < 1000; ++i) {
+      expect(
+        no.validatePersonalIdentityNumber(
+          navfaker.personIdentifikator.fødselsnummer(),
+        ),
+      ).toBe(true);
+      expect(
+        no.validatePersonalIdentityNumber(
+          navfaker.personIdentifikator.dnummer(),
+        ),
+      ).toBe(true);
+    }
   });
 });
 

@@ -29,5 +29,8 @@
   ],
   "scripts": {
     "build": "bunchee"
+  },
+  "devDependencies": {
+    "nav-faker": "3.2.4"
   }
 }

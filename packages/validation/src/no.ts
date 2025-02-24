@@ -103,3 +103,56 @@ export function validateObosMembershipNumber(
 
   return /^\d{7}$/.test(value);
 }
+
+type PersonalIdentityNumberOptions = ValidatorOptions;
+
+/**
+ * Validates that the input value is a Norwegian personal identity number.
+ *
+ * Supports both Fødselsnummer, D-numbers and H-numbers.
+ * @example
+ * ```
+ * validatePersonalIdentityNumber('0000000') // => true
+ * ```
+ */
+export function validatePersonalIdentityNumber(
+  value: string,
+  options: PersonalIdentityNumberOptions = {},
+): boolean {
+  if (options.allowFormatting) {
+    // biome-ignore lint/style/noParameterAssign:
+    value = stripFormatting(value);
+  }
+
+  // Fødselsnummer and d numbers have two control digits.
+  // where the first one is calculated using the first 10 digits.
+  const valueForControlDigit1 = value.slice(0, -1);
+  const controlDigit1 = mod11(
+    valueForControlDigit1,
+    [3, 7, 6, 1, 8, 9, 4, 5, 2],
+  );
+  const controlDigit2 = mod11(value, [5, 4, 3, 2, 7, 6, 5, 4, 3, 2]);
+
+  if (!controlDigit1 && controlDigit2) {
+    return false;
+  }
+
+  let day = Number(value.substring(0, 2));
+  let month = Number(value.substring(2, 4));
+  const year = Number(value.substring(4, 6));
+
+  switch (true) {
+    // d number
+    case value[0] >= 4:
+      day = day - 40;
+      break;
+    // h number
+    case value[2] >= 4:
+      month = month - 40;
+      break;
+  }
+
+  const date = new Date(Date.UTC(year, month - 1, day));
+
+  return date && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
+}
