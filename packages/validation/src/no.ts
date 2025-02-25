@@ -107,9 +107,10 @@ export function validateObosMembershipNumber(
 type PersonalIdentityNumberOptions = ValidatorOptions;
 
 /**
- * Validates that the input value is a Norwegian national identity number.
+ * Validates that the input value is a Norwegian national identity number (fødselsnummer or d-nummer).
  *
- * Supports both fødselsnummer and d-nummer.
+ * It validates the control digits and checks if the date of birth is valid.
+ *
  * @example
  * ```
  * // Fødselsnummer
@@ -143,18 +144,20 @@ export function validateNationalIdentityNumber(
     return false;
   }
 
+  // copy/inspiration from NAV https://github.com/navikt/fnrvalidator/blob/77e57f0bc8e3570ddc2f0a94558c58d0f7259fe0/src/validator.ts#L108
   let day = Number(value.substring(0, 2));
   const month = Number(value.substring(2, 4));
   let year = Number(value.substring(4, 6));
 
-  // 1900 isn't a leap year
+  // 1900 isn't a leap year, but 2000 is. Since JS two digits years to the Date constructor is an offset from the year 1900
+  // we need to special handle that case. For other cases it doesn't really matter if the year is 1925 or 2025.
   if (year === 0) {
     year = 2000;
   }
 
-  // for a d-number the first digit is increased by 4. Eg the 31st of a month would be 71, or the 3rd would be 43.
+  // for a d-number the day is increased by 40. Eg the 31st of a month would be 71, or the 3rd would be 43.
   // thus we need to subtract 40 to get the correct day of the month
-  if (day >= 40) {
+  if (day > 40) {
     day = day - 40;
   }
 
