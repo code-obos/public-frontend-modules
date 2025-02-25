@@ -60,19 +60,52 @@ describe('no', () => {
     expect(no.validateObosMembershipNumber(input, options)).toBe(expected);
   });
 
-  test('validateNationalIdentityNumber()', () => {
+  test('validateNationalIdentityNumber() - validates fødselsnummer', () => {
     for (let i = 0; i < 1000; ++i) {
-      expect(
-        no.validateNationalIdentityNumber(
-          navfaker.personIdentifikator.fødselsnummer(),
-        ),
-      ).toBe(true);
-      expect(
-        no.validateNationalIdentityNumber(
-          navfaker.personIdentifikator.dnummer(),
-        ),
-      ).toBe(true);
+      const fnr = navfaker.personIdentifikator.fødselsnummer();
+      expect(no.validateNationalIdentityNumber(fnr), `${fnr} is valid`).toBe(
+        true,
+      );
     }
+  });
+
+  test('validateNationalIdentityNumber() - validates d-nummer', () => {
+    for (let i = 0; i < 1000; ++i) {
+      const dnr = navfaker.personIdentifikator.dnummer();
+      expect(no.validateNationalIdentityNumber(dnr), `${dnr} is valid`).toBe(
+        true,
+      );
+    }
+  });
+
+  test('validateNationalIdentityNumber() - validates leap years', () => {
+    expect(no.validateNationalIdentityNumber('29029648784')).toBe(true);
+  });
+
+  test('validateNationalIdentityNumber() - validates 00 as a leap year', () => {
+    expect(no.validateNationalIdentityNumber('29020075838')).toBe(true);
+  });
+
+  test('validateNationalIdentityNumber() - returns false for invalid identity numbers', () => {
+    expect(
+      no.validateNationalIdentityNumber('13097248032'),
+      '1st control digit is invalid',
+    ).toBe(false);
+
+    expect(
+      no.validateNationalIdentityNumber('13097248023'),
+      '2nd control digit is invalid',
+    ).toBe(false);
+
+    expect(
+      no.validateNationalIdentityNumber('32127248022'),
+      'day is invalid',
+    ).toBe(false);
+
+    expect(
+      no.validateNationalIdentityNumber('13137248022'),
+      'month is invalid',
+    ).toBe(false);
   });
 });
 
