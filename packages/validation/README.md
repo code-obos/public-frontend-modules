@@ -57,6 +57,7 @@ validateOrganizationNumber('937 052 766', { allowFormatting: true }) // true;
 
 ## Methods
 
+* validateNationalIdentityNumber
 * validatePostalCode
 * validatePhoneNumber
   * supports mobileOnly option
