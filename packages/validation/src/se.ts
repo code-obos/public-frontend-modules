@@ -122,7 +122,7 @@ export function validateNationalIdentityNumber(
   // copy/inspiration from NAV https://github.com/navikt/fnrvalidator/blob/77e57f0bc8e3570ddc2f0a94558c58d0f7259fe0/src/validator.ts#L108
   let year = Number(value.substring(0, 2 + add));
   const month = Number(value.substring(2 + add, 4 + add));
-  const day = Number(value.substring(4 + add, 6 + add));
+  let day = Number(value.substring(4 + add, 6 + add));
 
   // 1900 isn't a leap year, but 2000 is. Since JS two digits years to the Date constructor is an offset from the year 1900
   // we need to special handle that case. For other cases it doesn't really matter if the year is 1925 or 2025.
@@ -130,10 +130,10 @@ export function validateNationalIdentityNumber(
     year = 2000;
   }
 
-  // for a d-number the day is increased by 40. Eg the 31st of a month would be 71, or the 3rd would be 43.
-  // thus we need to subtract 40 to get the correct day of the month
-  if (day > 40) {
-    day = day - 40;
+  // for a samordningsnummer the day is increased by 60. Eg the 31st of a month would be 91, or the 3rd would be 63.
+  // thus we need to subtract 60 to get the correct day of the month
+  if (day > 60) {
+    day = day - 60;
   }
 
   return isValidDate(year, month, day);
