@@ -1,5 +1,5 @@
 import type { ValidatorOptions } from './types';
-import { mod11, stripFormatting } from './utils';
+import { isValidDate, mod11, stripFormatting } from './utils';
 
 type PostalCodeOptions = ValidatorOptions;
 
@@ -161,8 +161,5 @@ export function validateNationalIdentityNumber(
     day = day - 40;
   }
 
-  // important to use UTC so the user's timezone doesn't affect the validation
-  const date = new Date(Date.UTC(year, month - 1, day));
-
-  return date && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
+  return isValidDate(year, month, day);
 }

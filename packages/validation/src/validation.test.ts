@@ -1,3 +1,4 @@
+import swedishPersonNummer from '@personnummer/generate';
 import navfaker from 'nav-faker/dist/index';
 import { describe, expect, test } from 'vitest';
 import * as no from './no';
@@ -177,5 +178,15 @@ describe('se', () => {
     ['123 45 67', true, { allowFormatting: true }],
   ])('validateObosMembershipNumber(%s) -> %s', (input, expected, options) => {
     expect(se.validateObosMembershipNumber(input, options)).toBe(expected);
+  });
+
+  test('validateNationalIdentityNumber() - validates leap years', () => {
+    for (let i = 0; i < 1000; ++i) {
+      const pnr = swedishPersonNummer({ format: 'short' });
+      expect(
+        se.validateNationalIdentityNumber(pnr, { allowFormatting: true }),
+        `${pnr} is valid`,
+      ).toBe(true);
+    }
   });
 });
