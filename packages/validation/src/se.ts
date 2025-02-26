@@ -87,16 +87,16 @@ export function validateOrganizationNumber(
 type PersonalIdentityNumberOptions = ValidatorOptions;
 
 /**
- * Validates that the input value is a Swedish national identity number (fødselsnummer or d-nummer).
+ * Validates that the input value is a Swedish national identity number (personnummer or samordningsnummer).
  *
  * It validates the control digits and checks if the date of birth is valid.
  *
  * @example
  * ```
- * // Fødselsnummer
+ * // Personnummer
  * validatePersonalIdentityNumber('21075417753') // => true
  *
- * // D-nummer
+ * // Samordningsnummer
  * validatePersonalIdentityNumber('53097248016') // => true
  * ```
  */
@@ -128,6 +128,12 @@ export function validateNationalIdentityNumber(
   // we need to special handle that case. For other cases it doesn't really matter if the year is 1925 or 2025.
   if (year === 0) {
     year = 2000;
+  }
+
+  // for a d-number the day is increased by 40. Eg the 31st of a month would be 71, or the 3rd would be 43.
+  // thus we need to subtract 40 to get the correct day of the month
+  if (day > 40) {
+    day = day - 40;
   }
 
   return isValidDate(year, month, day);
