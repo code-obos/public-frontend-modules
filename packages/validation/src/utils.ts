@@ -57,7 +57,7 @@ export function mod10(value: string): boolean {
 }
 
 export function isValidDate(year: number, month: number, day: number): boolean {
-  // months are zero indexed 🤷‍♂️
+  // biome-ignore lint/style/noParameterAssign: months are zero index 🤷‍♂️
   month -= 1;
 
   // important to use UTC so the user's timezone doesn't affect the validation
