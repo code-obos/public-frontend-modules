@@ -104,7 +104,7 @@ export function validateObosMembershipNumber(
   return /^\d{7}$/.test(value);
 }
 
-type PersonalIdentityNumberOptions = ValidatorOptions;
+type NationalIdentityNumberOptions = ValidatorOptions;
 
 /**
  * Validates that the input value is a Norwegian national identity number (fødselsnummer or d-nummer).
@@ -122,7 +122,7 @@ type PersonalIdentityNumberOptions = ValidatorOptions;
  */
 export function validateNationalIdentityNumber(
   value: string,
-  options: PersonalIdentityNumberOptions = {},
+  options: NationalIdentityNumberOptions = {},
 ): boolean {
   if (options.allowFormatting) {
     // biome-ignore lint/style/noParameterAssign:

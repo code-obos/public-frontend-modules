@@ -180,13 +180,35 @@ describe('se', () => {
     expect(se.validateObosMembershipNumber(input, options)).toBe(expected);
   });
 
-  test('validateNationalIdentityNumber() - validates leap years', () => {
+  test('test with leap years', () => {
+    expect(
+      se.validateOrganizationNumber('000229-3017', { allowFormatting: true }),
+    ).toBe(true);
+
+    expect(
+      se.validateOrganizationNumber('000229-5855', { allowFormatting: true }),
+    ).toBe(true);
+  });
+
+  test('validateNationalIdentityNumber() - validates short format personnummer', () => {
     for (let i = 0; i < 1000; ++i) {
       const pnr = swedishPersonNummer({ format: 'short' });
       expect(
         se.validateNationalIdentityNumber(pnr, { allowFormatting: true }),
         `${pnr} is valid`,
       ).toBe(true);
+    }
+  });
+
+  // 204101052241
+  // 211802018075
+  // 196304076083
+  test.only('validateNationalIdentityNumber() - validates long format personnummer', () => {
+    for (let i = 0; i < 1000; ++i) {
+      const pnr = swedishPersonNummer({ format: 'long' });
+      expect(se.validateNationalIdentityNumber(pnr), `${pnr} is valid`).toBe(
+        true,
+      );
     }
   });
 });
