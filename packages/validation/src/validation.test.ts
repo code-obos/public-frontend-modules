@@ -194,21 +194,22 @@ describe('se', () => {
     for (let i = 0; i < 1000; ++i) {
       const pnr = swedishPersonNummer({ format: 'short' });
       expect(
-        se.validateNationalIdentityNumber(pnr, { allowFormatting: true }),
+        se.validateNationalIdentityNumber(pnr, {
+          allowFormatting: true,
+          format: 'short',
+        }),
         `${pnr} is valid`,
       ).toBe(true);
     }
   });
 
-  // 204101052241
-  // 211802018075
-  // 196304076083
-  test.only('validateNationalIdentityNumber() - validates long format personnummer', () => {
+  test('validateNationalIdentityNumber() - validates long format personnummer', () => {
     for (let i = 0; i < 1000; ++i) {
       const pnr = swedishPersonNummer({ format: 'long' });
-      expect(se.validateNationalIdentityNumber(pnr), `${pnr} is valid`).toBe(
-        true,
-      );
+      expect(
+        se.validateNationalIdentityNumber(pnr, { format: 'long' }),
+        `${pnr} is valid`,
+      ).toBe(true);
     }
   });
 });

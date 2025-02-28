@@ -84,8 +84,10 @@ export function validateOrganizationNumber(
   return /^\d{10}$/.test(value);
 }
 
+type NationalIdentityNumberFormat = 'short' | 'long';
 type NationalIdenityNumberOptions = ValidatorOptions & {
-  format?: ['long', 'short'];
+  /** By default, both formats are allowed */
+  format?: NationalIdentityNumberFormat;
 };
 
 /**
@@ -111,16 +113,17 @@ export function validateNationalIdentityNumber(
     value = stripFormatting(value);
   }
 
-  // this allows us to handle both YYYYMMDD and YYMMDD when extracting the date
-  const offset = value.length === 12 ? 2 : 0;
+  const isLongFormat = value.length === 12;
 
   // when verifying the value, we must always use the short format.
   // because the long format would generate a different checksum
-  const isValid = mod10(offset ? value.substring(2) : value);
+  const isValid = mod10(isLongFormat ? value.substring(2) : value);
   if (!isValid) {
     return false;
   }
 
+  // this allows us to handle both YYYYMMDD and YYMMDD when extracting the date
+  const offset = isLongFormat ? 2 : 0;
   // copy/inspiration from NAV https://github.com/navikt/fnrvalidator/blob/77e57f0bc8e3570ddc2f0a94558c58d0f7259fe0/src/validator.ts#L108
   let year = Number(value.substring(0, 2 + offset));
   const month = Number(value.substring(2 + offset, 4 + offset));
@@ -128,8 +131,7 @@ export function validateNationalIdentityNumber(
 
   // 1900 isn't a leap year, but 2000 is. Since JS two digits years to the Date constructor is an offset from the year 1900
   // we need to special handle that case. For other cases it doesn't really matter if the year is 1925 or 2025.
-  // if (options.format === 'short' && year === 0) {
-  if (value.length === 10 && year === 0) {
+  if (!isLongFormat && year === 0) {
     year = 2000;
   }
 
