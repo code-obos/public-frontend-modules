@@ -117,9 +117,9 @@ export function validateNationalIdentityNumber(
     return false;
   }
 
-  const [_, century, year, month, day, separator, rest] = match;
+  const [_, centuryStr, yearStr, monthStr, dayStr, separator, rest] = match;
 
-  if (century && options.format === 'short') {
+  if (centuryStr && options.format === 'short') {
     return false;
   }
 
@@ -128,38 +128,49 @@ export function validateNationalIdentityNumber(
   }
 
   // when verifying the value, we must always use the short format, discaring the century
-  // if included it would generate a different checksum
-  const isValid = mod10(`${year}${month}${day}${rest}`);
+  // if we include the century it would generate a different checksum
+  const isValid = mod10(`${yearStr}${monthStr}${dayStr}${rest}`);
   if (!isValid) {
     return false;
   }
 
-  // // this allows us to handle both YYYYMMDD and YYMMDD when extracting the date
-  // const offset = isLongFormat ? 2 : 0;
-  // // copy/inspiration from NAV https://github.com/navikt/fnrvalidator/blob/77e57f0bc8e3570ddc2f0a94558c58d0f7259fe0/src/validator.ts#L108
-  // let year = Number(value.substring(0, 2 + offset));
-  // const month = Number(value.substring(2 + offset, 4 + offset));
-  // let day = Number(value.substring(4 + offset, 6 + offset));
-  //
+  let year = 0;
+  switch (true) {
+    // if we have the long format version, we already have the full year
+    case centuryStr:
+      year = Number(centuryStr + yearStr);
+      break;
+    // otherwise, we can use the separator to determine the century of the personnummer
+    // if the separator is '+', the person is over a 100 years old
+    // we can then get
+    case separator: {
+      const date = new Date();
+      const baseYear =
+        separator === '+' ? date.getUTCFullYear() - 100 : date.getUTCFullYear();
+      year = baseYear - ((baseYear - yearStr) % 100);
+      break;
+    }
+    // if it's the short format, without a separator, we need to special handle the year for the date validation.
+    // 1900 isn't a leap year, but 2000 is. Since JS two digits years to the Date constructor is an offset from the year 1900
+    // we need to special handle that case. For other cases it doesn't really matter if the year is 1925 or 2025.
+    case yearStr === '00':
+      year = 2000;
+      break;
+    // short version without separator
+    default:
+      year = Number(yearStr);
+  }
 
-  const month2 = Number(month);
-  let day2 = Number(day);
-  let year2 = Number(century ? century + year : year);
+  const month = Number(monthStr);
+
+  let day = Number(dayStr);
   // for a samordningsnummer the day is increased by 60. Eg the 31st of a month would be 91, or the 3rd would be 63.
   // thus we need to subtract 60 to get the correct day of the month
-  if (day2 > 60) {
-    day2 = day2 - 60;
+  if (day > 60) {
+    day = day - 60;
   }
 
-  // 1900 isn't a leap year, but 2000 is. Since JS two digits years to the Date constructor is an offset from the year 1900
-  // we need to special handle that case. For other cases it doesn't really matter if the year is 1925 or 2025.
-  if (!separator && !century && year === '00') {
-    year2 = 2000;
-  } else if (century) {
-    year2 = Number(century + year);
-  }
-
-  return isValidDate(year2, month2, day2);
+  return isValidDate(year, month, day);
 }
 
 // just reexport the no method for API feature parity

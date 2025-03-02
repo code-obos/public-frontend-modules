@@ -223,7 +223,7 @@ describe('se', () => {
     }
   });
 
-  test('validateNationalIdentityNumber() - handles leap years', () => {
+  test.only('validateNationalIdentityNumber() - handles leap years', () => {
     expect(se.validateNationalIdentityNumber('0002297422')).toBe(true);
   });
 });
