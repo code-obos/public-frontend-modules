@@ -212,4 +212,18 @@ describe('se', () => {
       ).toBe(true);
     }
   });
+
+  test('validateNationalIdentityNumber() - validates long format personnummer', () => {
+    for (let i = 0; i < 1000; ++i) {
+      const pnr = swedishPersonNummer({ format: 'long' });
+      expect(
+        se.validateNationalIdentityNumber(pnr, { format: 'long' }),
+        `${pnr} is valid`,
+      ).toBe(true);
+    }
+  });
+
+  test('validateNationalIdentityNumber() - handles leap years', () => {
+    expect(se.validateNationalIdentityNumber('0002297422')).toBe(true);
+  });
 });

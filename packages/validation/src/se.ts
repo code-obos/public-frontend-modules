@@ -90,6 +90,9 @@ type NationalIdenityNumberOptions = ValidatorOptions & {
   format?: NationalIdentityNumberFormat;
 };
 
+// the first two digts are optional, as they're the century in the long format version
+const PERSONNUMMER_FORMAT = /^(\d{2}){0,1}(\d{2})(\d{2})(\d{2})([+-]?)(\d{4})$/;
+
 /**
  * Validates that the input value is a Swedish national identity number (personnummer or samordningsnummer).
  *
@@ -108,40 +111,55 @@ export function validateNationalIdentityNumber(
   value: string,
   options: NationalIdenityNumberOptions = {},
 ): boolean {
-  if (options.allowFormatting) {
-    // biome-ignore lint/style/noParameterAssign:
-    value = stripFormatting(value);
+  const match = PERSONNUMMER_FORMAT.exec(value);
+
+  if (!match) {
+    return false;
   }
 
-  const isLongFormat = value.length === 12;
+  const [_, century, year, month, day, separator, rest] = match;
 
-  // when verifying the value, we must always use the short format.
-  // because the long format would generate a different checksum
-  const isValid = mod10(isLongFormat ? value.substring(2) : value);
+  if (century && options.format === 'short') {
+    return false;
+  }
+
+  if (separator && !options.allowFormatting) {
+    return false;
+  }
+
+  // when verifying the value, we must always use the short format, discaring the century
+  // if included it would generate a different checksum
+  const isValid = mod10(`${year}${month}${day}${rest}`);
   if (!isValid) {
     return false;
   }
 
-  // this allows us to handle both YYYYMMDD and YYMMDD when extracting the date
-  const offset = isLongFormat ? 2 : 0;
-  // copy/inspiration from NAV https://github.com/navikt/fnrvalidator/blob/77e57f0bc8e3570ddc2f0a94558c58d0f7259fe0/src/validator.ts#L108
-  let year = Number(value.substring(0, 2 + offset));
-  const month = Number(value.substring(2 + offset, 4 + offset));
-  let day = Number(value.substring(4 + offset, 6 + offset));
+  // // this allows us to handle both YYYYMMDD and YYMMDD when extracting the date
+  // const offset = isLongFormat ? 2 : 0;
+  // // copy/inspiration from NAV https://github.com/navikt/fnrvalidator/blob/77e57f0bc8e3570ddc2f0a94558c58d0f7259fe0/src/validator.ts#L108
+  // let year = Number(value.substring(0, 2 + offset));
+  // const month = Number(value.substring(2 + offset, 4 + offset));
+  // let day = Number(value.substring(4 + offset, 6 + offset));
+  //
+
+  const month2 = Number(month);
+  let day2 = Number(day);
+  let year2 = Number(century ? century + year : year);
+  // for a samordningsnummer the day is increased by 60. Eg the 31st of a month would be 91, or the 3rd would be 63.
+  // thus we need to subtract 60 to get the correct day of the month
+  if (day2 > 60) {
+    day2 = day2 - 60;
+  }
 
   // 1900 isn't a leap year, but 2000 is. Since JS two digits years to the Date constructor is an offset from the year 1900
   // we need to special handle that case. For other cases it doesn't really matter if the year is 1925 or 2025.
-  if (!isLongFormat && year === 0) {
-    year = 2000;
+  if (!separator && !century && year === '00') {
+    year2 = 2000;
+  } else if (century) {
+    year2 = Number(century + year);
   }
 
-  // for a samordningsnummer the day is increased by 60. Eg the 31st of a month would be 91, or the 3rd would be 63.
-  // thus we need to subtract 60 to get the correct day of the month
-  if (day > 60) {
-    day = day - 60;
-  }
-
-  return isValidDate(year, month, day);
+  return isValidDate(year2, month2, day2);
 }
 
 // just reexport the no method for API feature parity
