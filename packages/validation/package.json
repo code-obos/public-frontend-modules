@@ -31,6 +31,7 @@
     "build": "bunchee"
   },
   "devDependencies": {
-    "nav-faker": "3.2.4"
+    "@personnummer/generate": "^1.0.3",
+    "nav-faker": "^3.2.4"
   }
 }

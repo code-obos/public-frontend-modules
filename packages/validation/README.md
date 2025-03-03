@@ -40,7 +40,6 @@ The methods are "strict" by default, meaning no formatting characters in the inp
 This is preferrable, for instance when doing server-side validation, where the input is often expected to be a "clean" value.
 
 If you want to allow formatting characters in the input, you can pass `allowFormatting: true` in the options object to the method.
-Note that this currently allows any formatting characters, not just the just the "expected" ones for the input type.
 
 
 ```js
