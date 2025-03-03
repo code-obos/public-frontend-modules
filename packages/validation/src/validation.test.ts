@@ -180,32 +180,32 @@ describe('se', () => {
     expect(se.validateObosMembershipNumber(input, options)).toBe(expected);
   });
 
-  test('test with leap years', () => {
-    expect(
-      se.validateOrganizationNumber('000229-3017', { allowFormatting: true }),
-    ).toBe(true);
-
-    expect(
-      se.validateOrganizationNumber('000229-5855', { allowFormatting: true }),
-    ).toBe(true);
-  });
-
-  test('validateNationalIdentityNumber() - validates short format personnummer', () => {
+  test('validateNationalIdentityNumber() - validates short format (YYMMDDXXXX) personnummer', () => {
     for (let i = 0; i < 1000; ++i) {
-      const pnr = swedishPersonNummer({ format: 'short' });
+      const pnrWithSeparator = swedishPersonNummer({ format: 'short' });
+      const pnrWithoutSeparator = pnrWithSeparator.replace(/[-+]/, '');
+
       expect(
-        se.validateNationalIdentityNumber(pnr, {
+        se.validateNationalIdentityNumber(pnrWithSeparator, {
           allowFormatting: true,
           format: 'short',
         }),
-        `${pnr} is valid`,
+        `${pnrWithSeparator} is valid with separator`,
+      ).toBe(true);
+
+      expect(
+        se.validateNationalIdentityNumber(pnrWithoutSeparator, {
+          format: 'short',
+        }),
+        `${pnrWithSeparator} is valid without separator`,
       ).toBe(true);
     }
   });
 
-  test('validateNationalIdentityNumber() - validates long format personnummer', () => {
+  test('validateNationalIdentityNumber() - validates long format (YYYYMMDDXXXX) personnummer', () => {
     for (let i = 0; i < 1000; ++i) {
       const pnr = swedishPersonNummer({ format: 'long' });
+
       expect(
         se.validateNationalIdentityNumber(pnr, { format: 'long' }),
         `${pnr} is valid`,
@@ -213,17 +213,53 @@ describe('se', () => {
     }
   });
 
-  test('validateNationalIdentityNumber() - validates long format personnummer', () => {
-    for (let i = 0; i < 1000; ++i) {
-      const pnr = swedishPersonNummer({ format: 'long' });
-      expect(
-        se.validateNationalIdentityNumber(pnr, { format: 'long' }),
-        `${pnr} is valid`,
-      ).toBe(true);
-    }
-  });
-
-  test.only('validateNationalIdentityNumber() - handles leap years', () => {
+  test('validateNationalIdentityNumber() - handles separator/leap years', () => {
+    // 29th of February is the best way to test whether the separator and long/short handling works correctly.
+    // The 29th of February year 2000 is valid a valid date, while the 29th of February year 1900 is not.
+    // That means we get different results based on the separator.
     expect(se.validateNationalIdentityNumber('0002297422')).toBe(true);
+    expect(
+      se.validateNationalIdentityNumber('000229-7422', {
+        allowFormatting: true,
+      }),
+    ).toBe(true);
+
+    expect(
+      se.validateNationalIdentityNumber('000229+7422', {
+        allowFormatting: true,
+      }),
+    ).toBe(false);
+
+    expect(se.validateNationalIdentityNumber('190002297422')).toBe(false);
+  });
+
+  test('validateNationalIdentityNumber() - validates samordningsnummer', () => {
+    expect(
+      se.validateNationalIdentityNumber('701063-2391', {
+        allowFormatting: true,
+      }),
+    ).toBe(true);
+  });
+
+  test('validateNationalIdentityNumber() - respects format modifier', () => {
+    expect(
+      se.validateNationalIdentityNumber(
+        swedishPersonNummer({ format: 'short' }),
+        {
+          allowFormatting: true,
+          format: 'long',
+        },
+      ),
+    ).toBe(false);
+
+    expect(
+      se.validateNationalIdentityNumber(
+        swedishPersonNummer({ format: 'long' }),
+        {
+          allowFormatting: true,
+          format: 'short',
+        },
+      ),
+    ).toBe(false);
   });
 });

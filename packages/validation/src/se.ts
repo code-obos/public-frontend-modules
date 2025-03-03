@@ -85,8 +85,8 @@ export function validateOrganizationNumber(
 }
 
 type NationalIdentityNumberFormat = 'short' | 'long';
-type NationalIdenityNumberOptions = ValidatorOptions & {
-  /** By default, both formats are allowed */
+type NationalIdentityNumberOptions = ValidatorOptions & {
+  /** Specify this if you want to format to be only long (12 digits) or short (10 digits). By default, both formats are allowed */
   format?: NationalIdentityNumberFormat;
 };
 
@@ -100,16 +100,18 @@ const PERSONNUMMER_FORMAT = /^(\d{2}){0,1}(\d{2})(\d{2})(\d{2})([+-]?)(\d{4})$/;
  *
  * @example
  * ```
- * // Personnummer
- * validatePersonalIdentityNumber('21075417753') // => true
+ * // Short format
+ * validatePersonalIdentityNumber('YYMMDDXXXX') // => true
+ * validatePersonalIdentityNumber('YYMMDD-XXXX', { allowFormatting: true }) // => true
  *
- * // Samordningsnummer
- * validatePersonalIdentityNumber('53097248016') // => true
+ * // Long format
+ * validatePersonalIdentityNumber('YYYYMMDDXXXX') // => true
+ * validatePersonalIdentityNumber('YYYYMMDD-XXXX', { allowFormatting: true }) // => true
  * ```
  */
 export function validateNationalIdentityNumber(
   value: string,
-  options: NationalIdenityNumberOptions = {},
+  options: NationalIdentityNumberOptions = {},
 ): boolean {
   const match = PERSONNUMMER_FORMAT.exec(value);
 
@@ -120,6 +122,10 @@ export function validateNationalIdentityNumber(
   const [_, centuryStr, yearStr, monthStr, dayStr, separator, rest] = match;
 
   if (centuryStr && options.format === 'short') {
+    return false;
+  }
+
+  if (!centuryStr && options.format === 'long') {
     return false;
   }
 
@@ -137,13 +143,13 @@ export function validateNationalIdentityNumber(
   let year = 0;
   switch (true) {
     // if we have the long format version, we already have the full year
-    case centuryStr:
+    case !!centuryStr:
       year = Number(centuryStr + yearStr);
       break;
     // otherwise, we can use the separator to determine the century of the personnummer
-    // if the separator is '+', the person is over a 100 years old
-    // we can then get
-    case separator: {
+    // if the separator is '+', we know person is over a 100 years old
+    // we can then calculate the full year
+    case !!separator: {
       const date = new Date();
       const baseYear =
         separator === '+' ? date.getUTCFullYear() - 100 : date.getUTCFullYear();
@@ -170,7 +176,7 @@ export function validateNationalIdentityNumber(
     day = day - 60;
   }
 
-  return isValidDate(year, month, day);
+  return isValidDate(year, month, day, centuryStr || separator);
 }
 
 // just reexport the no method for API feature parity

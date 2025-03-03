@@ -113,11 +113,7 @@ type NationalIdentityNumberOptions = ValidatorOptions;
  *
  * @example
  * ```
- * // Fødselsnummer
- * validatePersonalIdentityNumber('21075417753') // => true
- *
- * // D-nummer
- * validatePersonalIdentityNumber('53097248016') // => true
+ * validatePersonalIdentityNumber('DDMMYYXXXXX') // => true
  * ```
  */
 export function validateNationalIdentityNumber(
