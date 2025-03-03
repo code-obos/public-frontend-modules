@@ -60,18 +60,24 @@ export function mod10(value: string): boolean {
   return sum % 10 === 0;
 }
 
-export function isValidDate(year: number, month: number, day: number): boolean {
+export function isValidDate(
+  year: number,
+  month: number,
+  day: number,
+  /** Whether to check the year as part of the date validation. */
+  validateYear = false,
+): boolean {
   // biome-ignore lint/style/noParameterAssign: months are zero index 🤷‍♂️
   month -= 1;
 
   // important to use UTC so the user's timezone doesn't affect the validation
   const date = new Date(Date.UTC(year, month, day));
 
+  const validYear = validateYear ? date.getUTCFullYear() === year : true;
+
   return (
     date &&
-    // cannot do this for Norway
-    // maybe do it for Sweden for long format?
-    // date.getUTCFullYear() === year &&
+    validYear &&
     date.getUTCMonth() === month &&
     date.getUTCDate() === day
   );
