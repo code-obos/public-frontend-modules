@@ -153,7 +153,8 @@ export function validateNationalIdentityNumber(
       const date = new Date();
       const baseYear =
         separator === '+' ? date.getUTCFullYear() - 100 : date.getUTCFullYear();
-      year = baseYear - ((baseYear - yearStr) % 100);
+      year =
+        baseYear - ((baseYear - Number.parseInt(yearStr as string, 10)) % 100);
       break;
     }
     // if it's the short format, without a separator, we need to special handle the year for the date validation.
@@ -176,7 +177,7 @@ export function validateNationalIdentityNumber(
     day = day - 60;
   }
 
-  return isValidDate(year, month, day, centuryStr || separator);
+  return isValidDate(year, month, day, Boolean(centuryStr || separator));
 }
 
 // just reexport the no method for API feature parity
