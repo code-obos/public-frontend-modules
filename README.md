@@ -5,8 +5,8 @@ This a monorepo of OBOS' open source frontend modules.
 
 ## Packages
 
-* [format](./packages/format)
-* [validation](./packages/validation)
+* [format](./packages/format) - A collection of formatting methods for 🇳🇴 and 🇸🇪.
+* [validation](./packages/validation) - A collection of validation methods for 🇳🇴 and 🇸🇪.
 
 ## Contributing
 
@@ -34,4 +34,4 @@ pnpm build
 
 ### Releases and changelogs
 
-We use an automated release process based on [changesets](https://github.com/changesets/changesets) and a [Github action](./.github/workflows/release.yml) to version, release and publish the packages. Meaningful changes should be documented by running pnpm changeset and be a part of the pull request. Remember to follow semver.
+We use an automated release process based on [changesets](https://github.com/changesets/changesets) and a [Github action](./.github/workflows/release.yml) to version, release and publish the packages. Meaningful changes should be documented by running `pnpm changeset` and be a part of the pull request. Remember to follow semver.

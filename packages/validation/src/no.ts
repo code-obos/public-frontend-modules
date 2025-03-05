@@ -71,7 +71,7 @@ type OrganizationNumberOptions = ValidatorOptions;
  */
 export function validateOrganizationNumber(
   value: string,
-  options: PhoneNumberOptions = {},
+  options: OrganizationNumberOptions = {},
 ): boolean {
   if (options.allowFormatting) {
     // biome-ignore lint/style/noParameterAssign:
