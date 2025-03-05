@@ -1,5 +1,5 @@
 import type { ValidatorOptions } from './types';
-import { mod11, stripFormatting } from './utils';
+import { isValidDate, mod11, stripFormatting } from './utils';
 
 type PostalCodeOptions = ValidatorOptions;
 
@@ -104,7 +104,7 @@ export function validateObosMembershipNumber(
   return /^\d{7}$/.test(value);
 }
 
-type PersonalIdentityNumberOptions = ValidatorOptions;
+type NationalIdentityNumberOptions = ValidatorOptions;
 
 /**
  * Validates that the input value is a Norwegian national identity number (fødselsnummer or d-nummer).
@@ -113,16 +113,12 @@ type PersonalIdentityNumberOptions = ValidatorOptions;
  *
  * @example
  * ```
- * // Fødselsnummer
- * validatePersonalIdentityNumber('21075417753') // => true
- *
- * // D-nummer
- * validatePersonalIdentityNumber('53097248016') // => true
+ * validatePersonalIdentityNumber('DDMMYYXXXXX') // => true
  * ```
  */
 export function validateNationalIdentityNumber(
   value: string,
-  options: PersonalIdentityNumberOptions = {},
+  options: NationalIdentityNumberOptions = {},
 ): boolean {
   if (options.allowFormatting) {
     // biome-ignore lint/style/noParameterAssign:
@@ -161,8 +157,5 @@ export function validateNationalIdentityNumber(
     day = day - 40;
   }
 
-  // important to use UTC so the user's timezone doesn't affect the validation
-  const date = new Date(Date.UTC(year, month - 1, day));
-
-  return date && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
+  return isValidDate(year, month, day);
 }
