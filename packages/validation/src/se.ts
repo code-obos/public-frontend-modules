@@ -133,7 +133,7 @@ export function validateNationalIdentityNumber(
     return false;
   }
 
-  // when verifying the value, we must always use the short format, discaring the century
+  // when verifying the value, we must always use the short format, discarding the century
   // if we include the century it would generate a different checksum
   const isValid = mod10(`${yearStr}${monthStr}${dayStr}${rest}`);
   if (!isValid) {
