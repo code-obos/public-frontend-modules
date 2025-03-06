@@ -81,7 +81,7 @@ export function validateOrganizationNumber(
     value = stripFormatting(value);
   }
 
-  return /^\d{10}$/.test(value);
+  return /^\d{10}$/.test(value) && mod10(value);
 }
 
 type NationalIdentityNumberFormat = 'short' | 'long';
