@@ -54,7 +54,7 @@ describe('no', () => {
     ['95230820052', false],
     ['9523.08.20059', false],
   ])('validateAccountNumber(%s) -> %s', (input, expected) => {
-    expect(no.validateBankAccountNumber(input)).toBe(expected);
+    expect(no.validateAccountNumber(input)).toBe(expected);
   });
 
   test.each([
