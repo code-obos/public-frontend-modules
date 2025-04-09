@@ -163,8 +163,8 @@ Validates that the value is a valid organization number. Validates the checksum 
 
 ```js
 // 🇳🇴 example
-import { validateBankAccountNumber } from '@obosbbl/validation/no';
-validateBankAccountNumber('12345678903'); // => true
+import { validateAccountNumber } from '@obosbbl/validation/no';
+validateAccountNumber('12345678903'); // => true
 
 // 🇸🇪 example
 // TODO: implement
