@@ -48,6 +48,16 @@ describe('no', () => {
   });
 
   test.each([
+    ['12345678903', true],
+    ['12345678901', false],
+    ['9523 08 20059', false],
+    ['95230820052', false],
+    ['9523.08.20059', false],
+  ])('validateAccountNumber(%s) -> %s', (input, expected) => {
+    expect(no.validateBankAccountNumber(input)).toBe(expected);
+  });
+
+  test.each([
     ['1234567', true, undefined],
     // too short
     ['123456', false, undefined],

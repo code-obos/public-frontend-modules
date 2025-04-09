@@ -157,6 +157,19 @@ import { validateObosMembershipNumber } from '@obosbbl/validation/se';
 validateObosMembershipNumber('0000000') // => true
 ```
 
+### validateBankAccountNumber()
+
+Validates that the value is a valid organization number. Validates the checksum of the number.
+
+```js
+// 🇳🇴 example
+import { validateBankAccountNumber } from '@obosbbl/validation/no';
+validateBankAccountNumber('12345678903'); // => true
+
+// 🇸🇪 example
+// TODO: implement
+```
+
 
 ## Example usage with Zod
 

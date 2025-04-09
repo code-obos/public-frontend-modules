@@ -159,3 +159,9 @@ export function validateNationalIdentityNumber(
 
   return isValidDate(year, month, day);
 }
+
+export function validateBankAccountNumber(value: string): boolean {
+  // Norwegian bank account numbers use mod 11 with one control digits.
+  // The first one is calculated for all 11 digits
+  return mod11(value, [5, 4, 3, 2, 7, 6, 5, 4, 3, 2]);
+}
