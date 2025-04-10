@@ -1,6 +1,6 @@
 {
   "name": "@obosbbl/validation",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A collection of validation methods for OBOS",
   "repository": {
     "url": "https://github.com/code-obos/public-frontend-modules"
