@@ -48,6 +48,21 @@ describe('no', () => {
   });
 
   test.each([
+    ['12345678903', true, undefined],
+    ['12345678901', false, undefined],
+    ['1234 56 78903', false, undefined],
+    ['95230820052', false, undefined],
+    ['9523.08.20059', false, undefined],
+
+    ['1234 56 78903', true, { allowFormatting: true }],
+    ['1234 56 78903', false, { allowFormatting: false }],
+    ['9523.08.20059', true, { allowFormatting: true }],
+    ['9523.08.20059', false, { allowFormatting: false }],
+  ])('validateAccountNumber(%s) -> %s', (input, expected, options) => {
+    expect(no.validateAccountNumber(input, options)).toBe(expected);
+  });
+
+  test.each([
     ['1234567', true, undefined],
     // too short
     ['123456', false, undefined],

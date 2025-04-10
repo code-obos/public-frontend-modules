@@ -159,3 +159,29 @@ export function validateNationalIdentityNumber(
 
   return isValidDate(year, month, day);
 }
+
+type AccountNumberOptions = ValidatorOptions;
+
+/**
+ * Validates that the input value is a Norwegian bank account number (kontonummer).
+ *
+ * It validates the control digit.
+ *
+ * @example
+ * ```
+ * validateAccountNumber('XXXXXXXXXXX') // => true
+ * ```
+ */
+export function validateAccountNumber(
+  value: string,
+  options: AccountNumberOptions = {},
+): boolean {
+  if (options.allowFormatting) {
+    // biome-ignore lint/style/noParameterAssign:
+    value = stripFormatting(value);
+  }
+
+  // Norwegian bank account numbers use mod 11 with one control digits.
+  // The first one is calculated for all 11 digits
+  return mod11(value, [5, 4, 3, 2, 7, 6, 5, 4, 3, 2]);
+}
