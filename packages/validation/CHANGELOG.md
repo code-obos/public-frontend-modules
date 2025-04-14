@@ -1,5 +1,20 @@
 # @obosbbl/validation
 
+## 0.3.1
+
+### Patch Changes
+
+- bb45e14: add method `no/validateAccountNumber()`
+
+  Validates that the input is a valid Norwegian bank account number.
+
+  ```
+      import { validateAccountNumber } from "@obosbbl/validation/no";
+
+      validateAccountNumber('12345678903') // => true
+
+  ```
+
 ## 0.3.0
 
 ### Minor Changes
