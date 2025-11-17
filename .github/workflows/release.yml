@@ -18,6 +18,8 @@ jobs:
       # write permission is required for autolabeler
       # otherwise, read permission is required at least
       pull-requests: write
+      # required for OIDC
+      id-token: write
 
     steps:
       - name: ⬇️ Checkout Repo
@@ -45,4 +47,3 @@ jobs:
           publish: pnpm run changeset:release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
