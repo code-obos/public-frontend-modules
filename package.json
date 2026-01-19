@@ -17,7 +17,7 @@
     "@biomejs/biome": "1.9.4",
     "@changesets/cli": "2.29.8",
     "bunchee": "6.5.0",
-    "typescript": "5.8.3",
+    "typescript": "5.9.3",
     "vitest": "4.0.17"
   },
   "engines": {
