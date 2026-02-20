@@ -14,7 +14,7 @@
   "type": "module",
   "devDependencies": {
     "@arethetypeswrong/cli": "0.17.4",
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.4.4",
     "@changesets/cli": "2.29.8",
     "bunchee": "6.5.0",
     "typescript": "5.8.3",
