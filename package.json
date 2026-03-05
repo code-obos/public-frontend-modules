@@ -16,7 +16,7 @@
     "@arethetypeswrong/cli": "0.17.4",
     "@biomejs/biome": "1.9.4",
     "@changesets/cli": "2.29.8",
-    "bunchee": "6.5.0",
+    "bunchee": "6.9.4",
     "typescript": "5.8.3",
     "vitest": "4.0.17"
   },
