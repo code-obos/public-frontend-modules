@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import {
+  formatAccountNumber as formatAccountNumberNo,
   formatObosMembershipNumber as formatObosMembershipNumberNo,
   formatOrganizationNumber as formatOrganizationNumberNo,
   formatPhoneNumber as formatPhoneNumberNo,
@@ -29,6 +30,15 @@ describe('no', () => {
     ['abc', 'abc'],
   ])('formatOrganizationNumber(%s) -> %s', (input, expected) => {
     expect(formatOrganizationNumberNo(input)).toBe(expected);
+  });
+
+  test.each([
+    ['00000000000', '0000 00 00000'],
+    ['0000 00 00000', '0000 00 00000'],
+    ['0000.00.00000', '0000 00 00000'],
+    ['abc', 'abc'],
+  ])('formatAccountNumber(%s) -> %s', (input, expected) => {
+    expect(formatAccountNumberNo(input)).toBe(expected);
   });
 
   test.each([['0000', '0000']])(
