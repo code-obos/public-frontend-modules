@@ -1,4 +1,5 @@
 import {
+  formatAccountNumber as _formatAccountNumber,
   formatObosMembershipNumber as _formatObosMembershipNumber,
   formatOrganizationNumber as formatOrganizationNumberNo,
   formatPhoneNumber as formatPhoneNumberNo,
@@ -14,6 +15,10 @@ export type Locale = 'no' | 'se';
 
 type Options = {
   locale: Locale;
+};
+
+type NorwegianOptions = {
+  locale: 'no';
 };
 
 /**
@@ -49,6 +54,21 @@ export function formatOrganizationNumber(
   return options.locale === 'no'
     ? formatOrganizationNumberNo(input)
     : formatOrganizationNumberSe(input);
+}
+
+/**
+ * Format a Norwegian account number
+ * @example
+ * ```
+ * formatAccountNumber('00000000000', { locale: 'no' }) // => '0000 00 00000'
+ * ```
+ */
+export function formatAccountNumber(
+  input: string,
+  options: NorwegianOptions,
+): string {
+  // This is currently a Norwegian-only formatter. Keep the options argument for API consistency.
+  return _formatAccountNumber(input);
 }
 
 /**

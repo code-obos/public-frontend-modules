@@ -52,6 +52,19 @@ export function formatOrganizationNumber(input: string): string {
   return replaceIfMatch(input, ORG_NUMBER_FORMAT, '$1 $2 $3');
 }
 
+const ACCOUNT_NUMBER_FORMAT = /^(\d{4})(\d{2})(\d{5})$/;
+
+/**
+ * Format a Norwegian account number
+ * @example
+ * ```
+ * formatAccountNumber('00000000000') // => '0000 00 00000'
+ * ```
+ */
+export function formatAccountNumber(input: string): string {
+  return replaceIfMatch(input, ACCOUNT_NUMBER_FORMAT, '$1 $2 $3');
+}
+
 const OBOS_MEMBERSHIP_NUMBER_FORMAT = /^(\d{3})(\d{2})(\d{2})$/;
 
 /**
