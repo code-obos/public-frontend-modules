@@ -1,2 +1,8 @@
 packages:
   - 'packages/*'
+# Dependency install scripts are blocked unless listed here. Biome's postinstall
+# only verifies that its platform binary resolved, and @swc/core's (pulled in by
+# bunchee) only checks for its optional native binding, so both stay off.
+allowBuilds:
+  '@biomejs/biome': false
+  '@swc/core': false
