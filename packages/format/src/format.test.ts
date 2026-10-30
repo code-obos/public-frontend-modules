@@ -16,6 +16,14 @@ describe('no', () => {
   test.each([
     ['22865500', '22 86 55 00'],
     ['80000000', '800 00 000'],
+    // 116-series
+    ['116000', '116 000'],
+    ['116 123', '116 123'],
+    // three, four and five digits are a single group
+    ['113', '113'],
+    ['1234', '1234'],
+    ['12345', '12345'],
+    ['12 345', '12345'],
     // with country code
     ['+4722865500', '22 86 55 00'],
   ])('formatPhoneNumber(%s) -> %s', (input, expected) => {
