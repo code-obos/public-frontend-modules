@@ -179,7 +179,7 @@ importers:
         specifier: 6.5.0
         version: 6.5.0(typescript@6.0.2)
       node:
-        specifier: runtime:>=26 <27
+        specifier: runtime:^26
         version: runtime:26.13.0
       typescript:
         specifier: 6.0.2
