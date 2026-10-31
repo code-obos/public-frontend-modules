@@ -10,10 +10,7 @@ type PostalCodeOptions = ValidatorOptions;
  * validatePostalCode('0000') // => true
  * ```
  */
-export function validatePostalCode(
-  value: string,
-  options: PostalCodeOptions = {},
-): boolean {
+export function validatePostalCode(value: string, options: PostalCodeOptions = {}): boolean {
   if (options.allowFormatting) {
     // biome-ignore lint/style/noParameterAssign:
     value = stripFormatting(value);
@@ -40,10 +37,7 @@ type PhoneNumberOptions = ValidatorOptions & {
  * validatePhoneNumber('90000000', { mobileOnly: true }) // => true
  * ```
  */
-export function validatePhoneNumber(
-  value: string,
-  options: PhoneNumberOptions = {},
-): boolean {
+export function validatePhoneNumber(value: string, options: PhoneNumberOptions = {}): boolean {
   if (options.allowFormatting) {
     // biome-ignore lint/style/noParameterAssign:
     value = stripFormatting(value);
@@ -129,10 +123,7 @@ export function validateNationalIdentityNumber(
   // The first one is calculated for the first 10d digits
   // while the last one uses all 11 digits
   const valueForControlDigit1 = value.slice(0, -1);
-  const controlDigit1 = mod11(
-    valueForControlDigit1,
-    [3, 7, 6, 1, 8, 9, 4, 5, 2],
-  );
+  const controlDigit1 = mod11(valueForControlDigit1, [3, 7, 6, 1, 8, 9, 4, 5, 2]);
 
   const controlDigit2 = mod11(value, [5, 4, 3, 2, 7, 6, 5, 4, 3, 2]);
 
@@ -172,10 +163,7 @@ type AccountNumberOptions = ValidatorOptions;
  * validateAccountNumber('XXXXXXXXXXX') // => true
  * ```
  */
-export function validateAccountNumber(
-  value: string,
-  options: AccountNumberOptions = {},
-): boolean {
+export function validateAccountNumber(value: string, options: AccountNumberOptions = {}): boolean {
   if (options.allowFormatting) {
     // biome-ignore lint/style/noParameterAssign:
     value = stripFormatting(value);

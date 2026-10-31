@@ -1,8 +1,4 @@
-export function replaceIfMatch(
-  input: string,
-  regex: RegExp,
-  replacerPattern: string,
-): string {
+export function replaceIfMatch(input: string, regex: RegExp, replacerPattern: string): string {
   const normalizedInput = cleanInput(input);
 
   return normalizedInput.replace(regex, replacerPattern);

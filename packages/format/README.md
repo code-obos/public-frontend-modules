@@ -2,7 +2,6 @@
 
 [![NPM Version](https://img.shields.io/npm/v/%40obosbbl%2Fformat)](https://www.npmjs.com/package/@obosbbl/format)
 
-
 A collection of formatting functions for both 🇳🇴 and 🇸🇪 with zero dependencies.
 
 ## Install
@@ -27,21 +26,21 @@ If unable to format the input, the method will return the (cleaned) input as is.
 ```js
 // Combined 🇳🇴🇸🇪 example
 import { formatOrganizationNumber } from '@obosbbl/format';
-formatOrganizationNumber('000000000', { locale: 'no' }) // => '000 000 000'
-formatOrganizationNumber('0000000000', { locale: 'se' }) // => '000000-0000'
+formatOrganizationNumber('000000000', { locale: 'no' }); // => '000 000 000'
+formatOrganizationNumber('0000000000', { locale: 'se' }); // => '000000-0000'
 
 // 🇳🇴 only example
 import { formatOrganizationNumber } from '@obosbbl/format/no';
-formatOrganizationNumber('000000000') // => '000 000 000'
+formatOrganizationNumber('000000000'); // => '000 000 000'
 
 // 🇸🇪 only example
 import { formatOrganizationNumber } from '@obosbbl/format/se';
-formatOrganizationNumber('0000000000') // => '000000-0000'
+formatOrganizationNumber('0000000000'); // => '000000-0000'
 ```
 
 ## Methods
 
-* formatPhoneNumber
-* formatOrganizationNumber
-* formatObosMembershipNumber
-* formatPostalCode
+- formatPhoneNumber
+- formatOrganizationNumber
+- formatObosMembershipNumber
+- formatPostalCode

@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["unicorn", "typescript", "oxc", "import", "eslint", "promise", "node"],
+  "ignorePatterns": ["**/dist"],
+  "rules": {
+    "unicorn/filename-case": [
+      "error",
+      {
+        "case": "kebabCase",
+      },
+    ],
+  },
+  "options": {
+    "typeAware": true,
+    "reportUnusedDisableDirectives": "error",
+    "denyWarnings": true,
+  },
+}
