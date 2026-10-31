@@ -75,10 +75,5 @@ export function isValidDate(
 
   const validYear = validateYear ? date.getUTCFullYear() === year : true;
 
-  return (
-    date &&
-    validYear &&
-    date.getUTCMonth() === month &&
-    date.getUTCDate() === day
-  );
+  return date && validYear && date.getUTCMonth() === month && date.getUTCDate() === day;
 }

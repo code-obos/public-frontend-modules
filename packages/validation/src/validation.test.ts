@@ -1,6 +1,7 @@
 import swedishPersonNummer from '@personnummer/generate';
 import navfaker from 'nav-faker/dist/index';
 import { describe, expect, test } from 'vitest';
+
 import * as no from './no';
 import * as se from './se';
 
@@ -79,18 +80,14 @@ describe('no', () => {
   test('validateNationalIdentityNumber() - validates fødselsnummer', () => {
     for (let i = 0; i < 1000; ++i) {
       const fnr = navfaker.personIdentifikator.fødselsnummer();
-      expect(no.validateNationalIdentityNumber(fnr), `${fnr} is valid`).toBe(
-        true,
-      );
+      expect(no.validateNationalIdentityNumber(fnr), `${fnr} is valid`).toBe(true);
     }
   });
 
   test('validateNationalIdentityNumber() - validates d-nummer', () => {
     for (let i = 0; i < 1000; ++i) {
       const dnr = navfaker.personIdentifikator.dnummer();
-      expect(no.validateNationalIdentityNumber(dnr), `${dnr} is valid`).toBe(
-        true,
-      );
+      expect(no.validateNationalIdentityNumber(dnr), `${dnr} is valid`).toBe(true);
     }
   });
 
@@ -103,25 +100,17 @@ describe('no', () => {
   });
 
   test('validateNationalIdentityNumber() - returns false for invalid identity numbers', () => {
-    expect(
-      no.validateNationalIdentityNumber('13097248032'),
-      '1st control digit is invalid',
-    ).toBe(false);
+    expect(no.validateNationalIdentityNumber('13097248032'), '1st control digit is invalid').toBe(
+      false,
+    );
 
-    expect(
-      no.validateNationalIdentityNumber('13097248023'),
-      '2nd control digit is invalid',
-    ).toBe(false);
+    expect(no.validateNationalIdentityNumber('13097248023'), '2nd control digit is invalid').toBe(
+      false,
+    );
 
-    expect(
-      no.validateNationalIdentityNumber('32127248022'),
-      'day is invalid',
-    ).toBe(false);
+    expect(no.validateNationalIdentityNumber('32127248022'), 'day is invalid').toBe(false);
 
-    expect(
-      no.validateNationalIdentityNumber('13137248022'),
-      'month is invalid',
-    ).toBe(false);
+    expect(no.validateNationalIdentityNumber('13137248022'), 'month is invalid').toBe(false);
   });
 });
 
@@ -221,10 +210,9 @@ describe('se', () => {
     for (let i = 0; i < 1000; ++i) {
       const pnr = swedishPersonNummer({ format: 'long' });
 
-      expect(
-        se.validateNationalIdentityNumber(pnr, { format: 'long' }),
-        `${pnr} is valid`,
-      ).toBe(true);
+      expect(se.validateNationalIdentityNumber(pnr, { format: 'long' }), `${pnr} is valid`).toBe(
+        true,
+      );
     }
   });
 
@@ -258,23 +246,17 @@ describe('se', () => {
 
   test('validateNationalIdentityNumber() - respects format modifier', () => {
     expect(
-      se.validateNationalIdentityNumber(
-        swedishPersonNummer({ format: 'short' }),
-        {
-          allowFormatting: true,
-          format: 'long',
-        },
-      ),
+      se.validateNationalIdentityNumber(swedishPersonNummer({ format: 'short' }), {
+        allowFormatting: true,
+        format: 'long',
+      }),
     ).toBe(false);
 
     expect(
-      se.validateNationalIdentityNumber(
-        swedishPersonNummer({ format: 'long' }),
-        {
-          allowFormatting: true,
-          format: 'short',
-        },
-      ),
+      se.validateNationalIdentityNumber(swedishPersonNummer({ format: 'long' }), {
+        allowFormatting: true,
+        format: 'short',
+      }),
     ).toBe(false);
   });
 });

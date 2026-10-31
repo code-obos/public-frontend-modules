@@ -2,11 +2,10 @@
 
 This a monorepo of OBOS' open source frontend modules.
 
-
 ## Packages
 
-* [format](./packages/format) - A collection of formatting methods for 🇳🇴 and 🇸🇪.
-* [validation](./packages/validation) - A collection of validation methods for 🇳🇴 and 🇸🇪.
+- [format](./packages/format) - A collection of formatting methods for 🇳🇴 and 🇸🇪.
+- [validation](./packages/validation) - A collection of validation methods for 🇳🇴 and 🇸🇪.
 
 ## Contributing
 
@@ -18,11 +17,18 @@ See the [pnpm installation guide](https://pnpm.io/installation).
 pnpm install
 ```
 
-### Linting
+### Linting and formatting
 
-This repository uses [biome](https://biomejs.dev/) for linting.
+This repository uses [oxlint](https://oxc.rs/docs/guide/usage/linter) (with type-aware rules) for linting and [oxfmt](https://oxc.rs/docs/guide/usage/formatter) for formatting.
+
+```
+pnpm lint
+pnpm fmt
+```
 
 ### Build
+
+Packages are built with [tsdown](https://tsdown.dev/).
 
 ```
 pnpm build

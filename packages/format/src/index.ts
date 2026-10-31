@@ -29,9 +29,7 @@ type Options = {
  * ```
  */
 export function formatPhoneNumber(input: string, options: Options): string {
-  return options.locale === 'no'
-    ? formatPhoneNumberNo(input)
-    : formatPhoneNumberSe(input);
+  return options.locale === 'no' ? formatPhoneNumberNo(input) : formatPhoneNumberSe(input);
 }
 
 /**
@@ -42,10 +40,7 @@ export function formatPhoneNumber(input: string, options: Options): string {
  * formatOrganizationNumber('0000000000', { locale: 'se' }) // => '000000-0000'
  * ```
  */
-export function formatOrganizationNumber(
-  input: string,
-  options: Options,
-): string {
+export function formatOrganizationNumber(input: string, options: Options): string {
   return options.locale === 'no'
     ? formatOrganizationNumberNo(input)
     : formatOrganizationNumberSe(input);
@@ -60,9 +55,7 @@ export function formatOrganizationNumber(
  * ```
  */
 export function formatPostalCode(input: string, options: Options): string {
-  return options.locale === 'no'
-    ? formatPostalCodeNo(input)
-    : formatPostalCodeSe(input);
+  return options.locale === 'no' ? formatPostalCodeNo(input) : formatPostalCodeSe(input);
 }
 
 /**
@@ -73,10 +66,7 @@ export function formatPostalCode(input: string, options: Options): string {
  * formatObosMembershipNumber('0000000', { locale: 'se' }) // => '000 00 00'
  * ```
  */
-export function formatObosMembershipNumber(
-  input: string,
-  options: Options,
-): string {
+export function formatObosMembershipNumber(input: string, _options: Options): string {
   // this is the same for no/se. But we want the APIs to be consistent...
   return _formatObosMembershipNumber(input);
 }

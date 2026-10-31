@@ -10,10 +10,7 @@ type PostalCodeOptions = ValidatorOptions;
  * validatePostalCode('00000') // => true
  * ```
  */
-export function validatePostalCode(
-  value: string,
-  options: PostalCodeOptions = {},
-): boolean {
+export function validatePostalCode(value: string, options: PostalCodeOptions = {}): boolean {
   if (options.allowFormatting) {
     // biome-ignore lint/style/noParameterAssign:
     value = stripFormatting(value);
@@ -42,10 +39,7 @@ type PhoneNumberOptions = ValidatorOptions & {
  * validatePhoneNumber('0700000000', { mobileOnly: true }) // => true
  * ```
  */
-export function validatePhoneNumber(
-  value: string,
-  options: PhoneNumberOptions = {},
-): boolean {
+export function validatePhoneNumber(value: string, options: PhoneNumberOptions = {}): boolean {
   if (options.allowFormatting) {
     // biome-ignore lint/style/noParameterAssign:
     value = stripFormatting(value);
@@ -151,10 +145,8 @@ export function validateNationalIdentityNumber(
     // we can then calculate the full year
     case !!separator: {
       const date = new Date();
-      const baseYear =
-        separator === '+' ? date.getUTCFullYear() - 100 : date.getUTCFullYear();
-      year =
-        baseYear - ((baseYear - Number.parseInt(yearStr as string, 10)) % 100);
+      const baseYear = separator === '+' ? date.getUTCFullYear() - 100 : date.getUTCFullYear();
+      year = baseYear - ((baseYear - Number.parseInt(yearStr as string, 10)) % 100);
       break;
     }
     // if it's the short format, without a separator, we need to special handle the year for the date validation.

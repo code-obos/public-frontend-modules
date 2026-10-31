@@ -2,9 +2,6 @@
   "name": "@obosbbl/validation",
   "version": "0.3.1",
   "description": "A collection of validation methods for OBOS",
-  "repository": {
-    "url": "https://github.com/code-obos/public-frontend-modules"
-  },
   "keywords": [
     "OBOS",
     "validate",
@@ -12,8 +9,14 @@
     "validator"
   ],
   "license": "MIT",
-  "sideEffects": false,
+  "repository": {
+    "url": "https://github.com/code-obos/public-frontend-modules"
+  },
+  "files": [
+    "dist"
+  ],
   "type": "module",
+  "sideEffects": false,
   "exports": {
     "./no": {
       "types": "./dist/no.d.mts",
@@ -24,11 +27,8 @@
       "default": "./dist/se.mjs"
     }
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "bunchee"
+    "build": "tsdown"
   },
   "devDependencies": {
     "@personnummer/generate": "^1.0.3",
