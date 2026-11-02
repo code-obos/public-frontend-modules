@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import {
   formatObosMembershipNumber as formatObosMembershipNumberNo,
   formatOrganizationNumber as formatOrganizationNumberNo,
@@ -39,12 +40,9 @@ describe('no', () => {
     expect(formatOrganizationNumberNo(input)).toBe(expected);
   });
 
-  test.each([['0000', '0000']])(
-    'formatPostalCode(%s) -> %s',
-    (input, expected) => {
-      expect(formatPostalCodeNo(input)).toBe(expected);
-    },
-  );
+  test.each([['0000', '0000']])('formatPostalCode(%s) -> %s', (input, expected) => {
+    expect(formatPostalCodeNo(input)).toBe(expected);
+  });
 });
 
 describe('se', () => {

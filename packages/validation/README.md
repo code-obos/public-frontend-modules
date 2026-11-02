@@ -2,7 +2,6 @@
 
 [![NPM Version](https://img.shields.io/npm/v/%40obosbbl%2Fvalidation)](https://www.npmjs.com/package/@obosbbl/validation)
 
-
 A collection of validation methods for both 🇳🇴 and 🇸🇪 with zero dependencies.
 
 ## Install
@@ -19,19 +18,18 @@ pnpm add @obosbbl/validation
 
 The package has two entrypoints, one for `no` and one for `se`. That allows you to import for only the locale you need.
 
-
 ```js
 // 🇳🇴 example
 import { validateOrganizationNumber } from '@obosbbl/validation/no';
-validateOrganizationNumber('937052766') // => true
+validateOrganizationNumber('937052766'); // => true
 
-validateOrganizationNumber('000') // => false
+validateOrganizationNumber('000'); // => false
 
 // 🇸🇪 example
 import { validateOrganizationNumber } from '@obosbbl/validation/se';
-validateOrganizationNumber('5592221054') // => true
+validateOrganizationNumber('5592221054'); // => true
 
-validateOrganizationNumber('000') // => false
+validateOrganizationNumber('000'); // => false
 ```
 
 ## Strictness and formatting characters
@@ -44,17 +42,16 @@ On the client side, formatting characters could be allowed, as they are more use
 
 If you want to allow formatting characters in the value, you can pass `allowFormatting: true` in the options object to the method.
 
-
 ```js
 import { validateOrganizationNumber } from '@obosbbl/validation/no';
 
-validateOrganizationNumber('937052766') // true
+validateOrganizationNumber('937052766'); // true
 
 // formatting characters disallowed by default
-validateOrganizationNumber('937 052 766') // false;
+validateOrganizationNumber('937 052 766'); // false;
 
 // allow formatting characters
-validateOrganizationNumber('937 052 766', { allowFormatting: true }) // true;
+validateOrganizationNumber('937 052 766', { allowFormatting: true }); // true;
 ```
 
 ## Methods
@@ -101,15 +98,15 @@ Validates that the value is a valid phone number. Specify `mobileOnly` to only a
 ```js
 // 🇳🇴 example
 import { validatePhoneNumber } from '@obosbbl/validation/no';
-validatePhoneNumber('00000000') // => true
-validatePhoneNumber('90000000', { mobileOnly: true }) // => true
+validatePhoneNumber('00000000'); // => true
+validatePhoneNumber('90000000', { mobileOnly: true }); // => true
 
 // 🇸🇪 example
 import { validatePhoneNumber } from '@obosbbl/validation/se';
-validatePhoneNumber('00000000') // => true
-validatePhoneNumber('000000000') // => true
-validatePhoneNumber('0000000000') // => true
-validatePhoneNumber('0700000000', { mobileOnly: true }) // => true
+validatePhoneNumber('00000000'); // => true
+validatePhoneNumber('000000000'); // => true
+validatePhoneNumber('0000000000'); // => true
+validatePhoneNumber('0700000000', { mobileOnly: true }); // => true
 ```
 
 ### validatePostalCode()
@@ -119,11 +116,11 @@ Validates that the value is a valid postal code.
 ```js
 // 🇳🇴 example
 import { validatePostalCode } from '@obosbbl/validation/no';
-validatePostalCode('0000') // => true
+validatePostalCode('0000'); // => true
 
 // 🇸🇪 example
 import { validatePostalCode } from '@obosbbl/validation/se';
-validatePostalCode('00000') // => true
+validatePostalCode('00000'); // => true
 ```
 
 ### validateOrganizationNumber()
@@ -133,11 +130,11 @@ Validates that the value is a valid organization number. Validates the checksum 
 ```js
 // 🇳🇴 example
 import { validateOrganizationNumber } from '@obosbbl/validation/no';
-validateOrganizationNumber('937052766') // => true
+validateOrganizationNumber('937052766'); // => true
 
 // 🇸🇪 example
 import { validateOrganizationNumber } from '@obosbbl/validation/se';
-validateOrganizationNumber('5592221054') // => true
+validateOrganizationNumber('5592221054'); // => true
 ```
 
 ### validateObosMembershipNumber()
@@ -150,11 +147,11 @@ Validates that the value is a valid OBOS membership number.
 ```js
 // 🇳🇴 example
 import { validateObosMembershipNumber } from '@obosbbl/validation/no';
-validateObosMembershipNumber('0000000') // => true
+validateObosMembershipNumber('0000000'); // => true
 
 // 🇸🇪 example
 import { validateObosMembershipNumber } from '@obosbbl/validation/se';
-validateObosMembershipNumber('0000000') // => true
+validateObosMembershipNumber('0000000'); // => true
 ```
 
 ### validateAccountNumber()
@@ -170,12 +167,11 @@ validateAccountNumber('12345678903'); // => true
 // TODO: implement
 ```
 
-
 ## Example usage with Zod
 
 ```js
-import { z } from 'zod';
 import { validatePhoneNumber } from '@obosbbl/validation/no';
+import { z } from 'zod';
 
 const mobileOnlySchema = z.object({
   name: z.string(),
@@ -197,7 +193,7 @@ mobileOnlySchema.parse(validData); // => { name: 'Kari Nordmann', phoneNumber: '
 const invalidData = {
   name: 'Ola Nordmann',
   phoneNumber: '22865500',
-}
+};
 
 mobileOnlySchema.parse(invalidData); // => throws ZodError
 ```

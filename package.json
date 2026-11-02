@@ -1,24 +1,28 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "pnpm --filter '*' build",
-    "build:check:types": "pnpm --parallel --filter './packages/*' exec attw --pack",
-    "lint": "pnpm biome check .",
-    "lint:ci": "pnpm biome ci .",
     "changeset": "changeset",
-    "changeset:version": "changeset version",
     "changeset:release": "pnpm run build && changeset publish",
+    "changeset:version": "changeset version",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
     "test": "vitest",
     "test:ci": "vitest run"
   },
-  "type": "module",
   "devDependencies": {
-    "@arethetypeswrong/cli": "0.18.2",
-    "@biomejs/biome": "1.9.4",
-    "@changesets/cli": "2.30.0",
-    "bunchee": "6.5.0",
-    "typescript": "6.0.2",
-    "vitest": "4.1.4"
+    "@arethetypeswrong/core": "0.18.5",
+    "@changesets/cli": "3.0.3",
+    "oxfmt": "0.75.0",
+    "oxlint": "1.90.0",
+    "oxlint-tsgolint": "7.0.2005",
+    "publint": "0.3.25",
+    "tsdown": "0.23.4",
+    "typescript": "7.0.2",
+    "vitest": "5.0.5"
   },
   "devEngines": {
     "runtime": {

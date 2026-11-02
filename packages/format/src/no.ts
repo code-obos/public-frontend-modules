@@ -36,26 +36,14 @@ export function formatPhoneNumber(input: string): string {
   }
 
   if (ONE_ONE_SIX_SERIES_PHONE_NUMBER_FORMAT.test(cleaned)) {
-    return replaceIfMatch(
-      cleaned,
-      ONE_ONE_SIX_SERIES_PHONE_NUMBER_FORMAT,
-      '$1 $2',
-    );
+    return replaceIfMatch(cleaned, ONE_ONE_SIX_SERIES_PHONE_NUMBER_FORMAT, '$1 $2');
   }
 
-  const number = replaceIfMatch(
-    input,
-    REGULAR_PHONE_NUMBER_FORMAT,
-    '$1 $2 $3 $4',
-  );
+  const number = replaceIfMatch(input, REGULAR_PHONE_NUMBER_FORMAT, '$1 $2 $3 $4');
 
   // if the number starts with 8, it's an 800-series number, so we'll format it differently
   return number.startsWith('8')
-    ? replaceIfMatch(
-        number,
-        EIGHT_HUNDRED_SERIES_PHONE_NUMBER_FORMAT,
-        '$1 $2 $3',
-      )
+    ? replaceIfMatch(number, EIGHT_HUNDRED_SERIES_PHONE_NUMBER_FORMAT, '$1 $2 $3')
     : number;
 }
 
