@@ -16,8 +16,8 @@
   "devDependencies": {
     "@arethetypeswrong/core": "0.18.5",
     "@changesets/cli": "3.0.3",
-    "oxfmt": "0.75.0",
-    "oxlint": "1.90.0",
+    "oxfmt": "0.76.0",
+    "oxlint": "1.91.0",
     "oxlint-tsgolint": "7.0.2005",
     "publint": "0.3.25",
     "tsdown": "0.23.4",
