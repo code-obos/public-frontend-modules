@@ -19,7 +19,7 @@ pnpm install
 
 ### Linting and formatting
 
-This repository uses [oxlint](https://oxc.rs/docs/guide/usage/linter) (with type-aware rules) for linting and [oxfmt](https://oxc.rs/docs/guide/usage/formatter) for formatting.
+This repository uses [oxlint](https://oxc.rs/docs/guide/usage/linter) (with type-aware rules) for linting and [oxfmt](https://oxc.rs/docs/guide/usage/formatter) for formatting. A [lefthook](https://lefthook.dev) pre-commit hook runs `oxfmt` and `oxlint --fix` on staged files, and is installed by `pnpm install`.
 
 ```
 pnpm lint
